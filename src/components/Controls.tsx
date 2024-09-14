@@ -38,7 +38,7 @@ export const controlMenuMap: {
     controls: FaceControls,
     onSelected: (manager: AICharacterManager) => {
       manager.vrmManager.focusManager.focus({
-        focusIntensity: 1,
+        focusIntensity: 0.001,
       });
     },
   },
@@ -47,8 +47,9 @@ export const controlMenuMap: {
     controls: MouthControls,
     onSelected: (manager: AICharacterManager) => {
       manager.vrmManager.focusManager.focus({
-        focusIntensity: 1,
-        cameraOffset: new Vector3(0, 0, 0.3),
+        focusIntensity: 0.01,
+        cameraOffset: new Vector3(0, -0.1, 0.2),
+        lookAtOffset: new Vector3(0, -0.1, 0.2),
       });
     },
   },
