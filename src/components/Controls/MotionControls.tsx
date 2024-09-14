@@ -1,10 +1,14 @@
 import React from "react";
 import { ControlsTypeProps } from "./ControlsType";
-import { EmotionAnimationType } from "../../repo/animations/emotions";
+import {
+  EmotionAnimationType,
+  emotionAnimations,
+} from "../../repo/animations/emotions";
 import { Slider } from "../common/Slider";
 import { FaPlay } from "react-icons/fa6";
 import { FaStop } from "react-icons/fa6";
 import { Card } from "../common/Card";
+import { AICharacterEventListenerType } from "../../AICharacterManager";
 
 export const MotionControls: React.FC<ControlsTypeProps> = (props) => {
   const [playingEmotionAnimation, setPlayingEmotionAnimation] =
@@ -12,30 +16,49 @@ export const MotionControls: React.FC<ControlsTypeProps> = (props) => {
   const [selectedEmotion, setSelectedEmotion] = React.useState<string>(
     props.manager.currentEmotion
   );
-  const [selectedEmotionIntensity, setSelectedEmotionIntensity] =
-    React.useState<number>(props.manager.currentEmotionIntensity);
+  const [
+    selectedEmotionAnimationIntensity,
+    setSelectedEmotionAnimationIntensity,
+  ] = React.useState<1 | 2 | 3>(props.manager.currentEmotionAnimationIntensity);
   const [viableEmotionAnimations, setViableEmotionAnimations] = React.useState<
     EmotionAnimationType[]
   >(
     props.manager._getExactViableEmotionAnimations(
       props.manager.currentEmotion,
-      props.manager.currentEmotionIntensity
+      props.manager.currentEmotionAnimationIntensity
     ) ?? []
   );
 
   React.useEffect(() => {
-    const emotion = props.manager.currentEmotion;
-    const intensity = props.manager.currentEmotionIntensity;
-    setSelectedEmotion(emotion);
-    setSelectedEmotionIntensity(intensity);
-    setViableEmotionAnimations(
-      props.manager._getExactViableEmotionAnimations(emotion, intensity) ?? []
-    );
-  }, [props.manager.currentEmotion, props.manager.currentEmotionIntensity]);
+    const changeListener: AICharacterEventListenerType = (event) => {
+      if (event.type === "motion") {
+        setPlayingEmotionAnimation(event.data.name);
+        setSelectedEmotion(props.manager.currentTargetEmotion);
+        setViableEmotionAnimations(
+          props.manager._getExactViableEmotionAnimations(
+            props.manager.currentTargetEmotion,
+            selectedEmotionAnimationIntensity * 0.332
+          ) ?? []
+        );
+      }
+    };
+    props.manager.addEventListener("change", changeListener);
+
+    return () => {
+      props.manager.removeEventListener("change", changeListener);
+    };
+  }, [selectedEmotionAnimationIntensity]);
 
   const handleEmotionIntensityChange = (value: number) => {
-    setSelectedEmotionIntensity(value);
-    props.manager.setEmotionIntensity(value);
+    const intensity = Math.ceil(value * 3);
+    setSelectedEmotionAnimationIntensity(intensity as 1 | 2 | 3);
+    setViableEmotionAnimations(
+      props.manager._getExactViableEmotionAnimations(
+        selectedEmotion,
+        value * 0.99
+      ) ?? []
+    );
+    props.manager.setEmotionIntensity(value * 0.99);
   };
 
   return (
@@ -88,7 +111,11 @@ export const MotionControls: React.FC<ControlsTypeProps> = (props) => {
                       emotion.name
                     );
                   } else {
-                    props.manager.setEmotion("neutral", emotion.intensity);
+                    props.manager._setAnimation(
+                      "neutral",
+                      1,
+                      emotionAnimations["neutral"]![1]![0]!.name
+                    );
                   }
                 },
               }}
@@ -105,7 +132,7 @@ export const MotionControls: React.FC<ControlsTypeProps> = (props) => {
         <Slider
           orientation="vertical"
           onChange={handleEmotionIntensityChange}
-          value={selectedEmotionIntensity}
+          value={selectedEmotionAnimationIntensity * 0.332}
           labelStart={"100%"}
           labelEnd={"0%"}
           backgroundColor={"FAFAFAFF"}

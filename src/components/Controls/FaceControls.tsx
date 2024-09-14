@@ -2,6 +2,7 @@ import React from "react";
 import { Slider } from "../common/Slider";
 import { ControlsTypeProps } from "./ControlsType";
 import useEffect from "react";
+import { AICharacterEventListenerType } from "../../AICharacterManager";
 
 const faceEmotions = ["angry", "happy", "relaxed", "sad", "surprised"];
 
@@ -10,24 +11,33 @@ export const FaceControls: React.FC<ControlsTypeProps> = (props) => {
     [key: string]: number;
   }>({ ...props.manager.vrmManager.expressionManager.face.currentExpression });
   const [faceEmotionIntensity, setFaceEmotionIntensity] = React.useState(
-    props.manager.currentEmotionIntensity
+    props.manager.currentFaceEmotionIntensity
   );
   const [intensitySliderEnabled, setIntensitySliderEnabled] =
     React.useState(true);
 
   React.useEffect(() => {
-    setFaceEmotionValues({
-      ...props.manager.vrmManager.expressionManager.face.currentExpression,
-    });
-    if (
-      props.manager.currentEmotion === "custom" ||
-      props.manager.currentEmotion === "neutral"
-    ) {
-      setIntensitySliderEnabled(false);
-    } else {
-      setIntensitySliderEnabled(true);
-    }
-  }, [props.manager.currentEmotion, props.manager.currentEmotionIntensity]);
+    const changeListener: AICharacterEventListenerType = (event) => {
+      if (event.type === "motion") {
+        setFaceEmotionValues({
+          ...props.manager.vrmManager.expressionManager.face.currentExpression,
+        });
+        if (
+          props.manager.currentTargetEmotion === "custom" ||
+          props.manager.currentTargetEmotion === "neutral"
+        ) {
+          setIntensitySliderEnabled(false);
+        } else {
+          setIntensitySliderEnabled(true);
+        }
+      }
+    };
+    props.manager.addEventListener("change", changeListener);
+
+    return () => {
+      props.manager.removeEventListener("change", changeListener);
+    };
+  }, []);
 
   const handleIntensityChange = (value: number) => {
     props.manager.setEmotionIntensity(value);

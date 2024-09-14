@@ -5,9 +5,11 @@ import React from "react";
 import { AICharacterManager } from "./AICharacterManager";
 import { useFrame } from "@react-three/fiber";
 import { Controls } from "./components/Controls";
+import { VoiceNames } from "./repo/voices";
 
 export type AICharacterProps = {
   vrmUrl?: string;
+  voiceName?: VoiceNames;
 };
 
 export const AICharacter: React.FC<AICharacterProps> = (props) => {
