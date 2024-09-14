@@ -1,16 +1,42 @@
 import React from "react";
 import { IconType } from "react-icons";
 import { IconButton, IconButtonProps } from "./IconButton";
-
+/**
+ * Props for the Card component.
+ *
+ * @typedef {Object} CardProps
+ * @property {string} title - The title text of the card.
+ * @property {string} [subtitle] - The optional subtitle text of the card.
+ * @property {string} body - The main body text of the card.
+ * @property {number} borderRadius - The border-radius for the card.
+ * @property {string} backgroundColor - The background color of the card.
+ * @property {IconButtonProps} icon - The props for the IconButton component.
+ */
 export type CardProps = {
   title: string;
-  subtitle: string;
+  subtitle?: string;
   body: string;
   borderRadius: number;
   backgroundColor: string;
   icon: IconButtonProps;
 };
 
+/**
+ * Card component renders a styled card with title, subtitle, body, and an icon.
+ *
+ * @param {CardProps} props - The properties to render the Card component.
+ * @returns {JSX.Element} The rendered Card component.
+ *
+ * @example
+ * <Card
+ *   title="Card Title"
+ *   subtitle="Optional Subtitle"
+ *   body="This is the main content of the card."
+ *   borderRadius={8}
+ *   backgroundColor="#fafafa"
+ *   icon={{ name: 'check', onClick: () => alert('Icon clicked') }}
+ * />
+ */
 export const Card: React.FC<CardProps> = (props) => {
   return (
     <div
@@ -55,9 +81,11 @@ export const Card: React.FC<CardProps> = (props) => {
             marginTop: "-12px",
           }}
         >
-          <span style={{ fontSize: "6pt", opacity: 0.75 }}>
-            {props.subtitle}
-          </span>
+          {props.subtitle && (
+            <span style={{ fontSize: "6pt", opacity: 0.75 }}>
+              {props.subtitle}
+            </span>
+          )}
           <span
             style={{
               fontSize: "4pt",
