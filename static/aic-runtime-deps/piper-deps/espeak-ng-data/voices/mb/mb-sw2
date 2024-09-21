@@ -1,9 +1,1 @@
-name swedish-mbrola-2
-language sv 8
-gender female
-
-pitch 140 220
-voicing 130
-
-mbrola sw2 sv2_phtrans
-
+/home/odin/apps/three-vrm-audio/packages/3rd/piper-wasm/espeak-ng/espeak-ng-data/voices/mb/mb-sw2

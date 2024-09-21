@@ -1,11 +1,1 @@
-language variant
-name croak
-gender male 70
-
-pitch 85 117
-flutter 20
-
-formant 0 100 80 110
-
-
-
+/home/odin/apps/three-vrm-audio/packages/3rd/piper-wasm/espeak-ng/espeak-ng-data/voices/!v/croak

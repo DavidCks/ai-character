@@ -1,9 +1,1 @@
-language en 10
-name en-french-4
-gender female
-
-dictrules 1
-pitch 140 220
-voicing 90
-mbrola fr4 fr_phtrans
-
+/home/odin/apps/three-vrm-audio/packages/3rd/piper-wasm/espeak-ng/espeak-ng-data/voices/mb/mb-fr4-en

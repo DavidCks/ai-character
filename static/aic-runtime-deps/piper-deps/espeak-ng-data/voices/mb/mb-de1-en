@@ -1,9 +1,1 @@
-name en-german-1
-language en 9
-gender female
-
-voicing 80
-pitch 140 220
-
-mbrola de1 de2_phtrans
-
+/home/odin/apps/three-vrm-audio/packages/3rd/piper-wasm/espeak-ng/espeak-ng-data/voices/mb/mb-de1-en

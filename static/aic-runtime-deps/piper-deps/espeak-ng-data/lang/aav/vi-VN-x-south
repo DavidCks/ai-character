@@ -1,9 +1,1 @@
-name Vietnamese (Southern)
-language vi-vn-x-south
-phonemes vi-sgn
-dictrules 2
-
-words 1
-pitch 82 118   //80 118
- voicing 90  //18
- flutter  20
+/home/odin/apps/three-vrm-audio/packages/3rd/piper-wasm/espeak-ng/espeak-ng-data/lang/aav/vi-VN-x-south

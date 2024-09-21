@@ -1,8 +1,1 @@
-name en-german-4
-language en 9
-gender male
-
-voicing 130
-
-mbrola de4 de4_phtrans
-
+/home/odin/apps/three-vrm-audio/packages/3rd/piper-wasm/espeak-ng/espeak-ng-data/voices/mb/mb-de4-en

@@ -1,6 +1,1 @@
-name Russian (Classic)
-language ru-cl
-replace 03 a a#
-dict_min  20000
-speed 95
-dictrules 3
+/home/odin/apps/three-vrm-audio/packages/3rd/piper-wasm/espeak-ng/espeak-ng-data/lang/zle/ru-cl

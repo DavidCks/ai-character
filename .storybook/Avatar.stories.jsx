@@ -3,7 +3,7 @@ import { AICharacterCanvas } from "../src/index";
 
 export default {
   component: AICharacterCanvas,
-  title: "AICharacter",
+  title: "3D Character",
 };
 
-export const Placeholder = () => <AICharacterCanvas />;
+export const CharacterViewer = () => <AICharacterCanvas />;

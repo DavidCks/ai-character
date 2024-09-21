@@ -1,7 +1,1 @@
-name polish-mbrola-1
-language pl 7
-gender female
-
-pitch 140 220
-voicing 120
-mbrola pl1 pl1_phtrans
+/home/odin/apps/three-vrm-audio/packages/3rd/piper-wasm/espeak-ng/espeak-ng-data/voices/mb/mb-pl1
