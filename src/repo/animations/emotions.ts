@@ -1,5 +1,7 @@
+import { AnimationMetadataType } from "./AnimationMetadataType";
+
 export const emotions: {
-  [key: keyof typeof emotionAnimations]: {
+  [key: string]: {
     sentiment: number;
   };
 } = {
@@ -31,23 +33,23 @@ export const emotions: {
   anger: { sentiment: 0.25 },
   grief: { sentiment: 0.22 },
   disgust: { sentiment: 0.19 },
-};
+} as const;
 
-export type EmotionAnimationType = {
-  intensity: number;
-  emotion: string;
+export interface EmotionAnimationMetadataType extends AnimationMetadataType {
+  metaType: "motion";
   name: string;
   url: string;
   motion: string;
   motionType: "Gesture" | "Loop";
   motionSituation: "formal" | "informal";
   onlyWhileTalking: boolean;
+  useAsFallback: boolean;
   type: "bvh" | "fbx" | "vrma";
-};
+}
 
 export const emotionAnimations: {
   [emotion: string]: {
-    [intensity: number]: EmotionAnimationType[];
+    [intensity: number]: EmotionAnimationMetadataType[];
   };
 } = {
   love: {},
@@ -60,7 +62,10 @@ export const emotionAnimations: {
     1: [
       {
         intensity: 1,
+        metaType: "motion",
         emotion: "disgust",
+        key: "disgust",
+        useAsFallback: true,
         name: "Slouched Posture",
         url: "aic-runtime-deps/animations/emotions/Orc_Idle.fbx",
         motion: "Slightly slouched posture with tense hands",
@@ -75,7 +80,10 @@ export const emotionAnimations: {
     1: [
       {
         intensity: 1,
+        metaType: "motion",
         emotion: "desire",
+        key: "desire",
+        useAsFallback: false,
         name: "Emoted Talking",
         url: "aic-runtime-deps/animations/emotions/Emoted_Talking.fbx",
         motion:
@@ -91,7 +99,10 @@ export const emotionAnimations: {
     1: [
       {
         intensity: 1,
+        metaType: "motion",
         emotion: "optimism",
+        key: "optimism",
+        useAsFallback: true,
         name: "Chest Out Posture",
         url: "aic-runtime-deps/animations/emotions/Neutral_Idle.fbx",
         motion: "Stading confidently with the chest out",
@@ -104,7 +115,10 @@ export const emotionAnimations: {
     2: [
       {
         intensity: 2,
+        metaType: "motion",
         emotion: "optimism",
+        key: "optimism",
+        useAsFallback: false,
         name: "Fist Hit",
         url: "aic-runtime-deps/animations/emotions/Standing_Cheering.fbx",
         motion:
@@ -120,7 +134,10 @@ export const emotionAnimations: {
     1: [
       {
         intensity: 1,
+        metaType: "motion",
         emotion: "grief",
+        key: "grief",
+        useAsFallback: true,
         name: "Slumped Stance",
         url: "aic-runtime-deps/animations/emotions/Neutral_Idle.fbx",
         motion: "Standing with a slightly weak posture",
@@ -133,7 +150,10 @@ export const emotionAnimations: {
     2: [
       {
         intensity: 2,
+        metaType: "motion",
         emotion: "grief",
+        key: "grief",
+        useAsFallback: true,
         name: "Slumped Swaying",
         url: "aic-runtime-deps/animations/emotions/Injured_Idle.fbx",
         motion: "Swaying forward and backward while leaning forward",
@@ -148,7 +168,10 @@ export const emotionAnimations: {
     2: [
       {
         intensity: 2,
+        metaType: "motion",
         emotion: "surprise",
+        key: "surprise",
+        useAsFallback: true,
         name: "Surprised Backstep",
         url: "aic-runtime-deps/animations/emotions/Focus.fbx",
         motion: "Stepping back and tumbling slightly with wide arms",
@@ -159,7 +182,10 @@ export const emotionAnimations: {
       },
       {
         intensity: 2,
+        metaType: "motion",
         emotion: "surprise",
+        key: "surprise",
+        useAsFallback: true,
         name: "Excited Stance",
         url: "aic-runtime-deps/animations/emotions/Getting_Up_End.fbx",
         motion: "Arms wide to the sides while in a wide stance",
@@ -172,7 +198,10 @@ export const emotionAnimations: {
     3: [
       {
         intensity: 3,
+        metaType: "motion",
         emotion: "surprise",
+        key: "surprise",
+        useAsFallback: true,
         name: "Shocked",
         url: "aic-runtime-deps/animations/emotions/Standing_Block_Start.fbx",
         motion: "Hands forward at chest height with angled knees and elbows",
@@ -187,7 +216,10 @@ export const emotionAnimations: {
     1: [
       {
         intensity: 1,
+        metaType: "motion",
         emotion: "relief",
+        key: "relief",
+        useAsFallback: false,
         name: "Relieved Sigh",
         url: "aic-runtime-deps/animations/emotions/Relieved_Sigh.fbx",
         motion:
@@ -201,7 +233,10 @@ export const emotionAnimations: {
     2: [
       {
         intensity: 2,
+        metaType: "motion",
         emotion: "relief",
+        key: "relief",
+        useAsFallback: true,
         name: "Wiping Sweat",
         url: "aic-runtime-deps/animations/emotions/Wiping_Sweat.fbx",
         motion:
@@ -215,7 +250,10 @@ export const emotionAnimations: {
     3: [
       {
         intensity: 3,
+        metaType: "motion",
         emotion: "relief",
+        key: "relief",
+        useAsFallback: true,
         name: "Exagerated Sigh",
         url: "aic-runtime-deps/animations/emotions/Shaking_It_Off.fbx",
         motion:
@@ -231,7 +269,10 @@ export const emotionAnimations: {
     3: [
       {
         intensity: 3,
+        metaType: "motion",
         emotion: "remorse",
+        key: "remorse",
+        useAsFallback: true,
         name: "Praying",
         url: "aic-runtime-deps/animations/emotions/Praying.fbx",
         motion: "Praying on the knees",
@@ -246,7 +287,10 @@ export const emotionAnimations: {
     1: [
       {
         intensity: 1,
+        metaType: "motion",
         emotion: "disappointment",
+        key: "disappointment",
+        useAsFallback: true,
         name: "Pouting",
         url: "aic-runtime-deps/animations/emotions/Pouting.fbx",
         motion:
@@ -258,7 +302,10 @@ export const emotionAnimations: {
       },
       {
         intensity: 1,
+        metaType: "motion",
         emotion: "disappointment",
+        key: "disappointment",
+        useAsFallback: true,
         name: "Looking Down",
         url: "aic-runtime-deps/animations/emotions/Looking_Down.fbx",
         motion:
@@ -270,7 +317,10 @@ export const emotionAnimations: {
       },
       {
         intensity: 1,
+        metaType: "motion",
         emotion: "disappointment",
+        key: "disappointment",
+        useAsFallback: true,
         name: "Mild Head Shake",
         url: "aic-runtime-deps/animations/emotions/Light_Headshake_Talking.fbx",
         motion:
@@ -284,7 +334,10 @@ export const emotionAnimations: {
     2: [
       {
         intensity: 2,
+        metaType: "motion",
         emotion: "disappointment",
+        key: "disappointment",
+        useAsFallback: true,
         name: "Disappointed Head Shake",
         url: "aic-runtime-deps/animations/emotions/Golf_Putt_Failure.fbx",
         motion:
@@ -296,7 +349,10 @@ export const emotionAnimations: {
       },
       {
         intensity: 2,
+        metaType: "motion",
         emotion: "disappointment",
+        key: "disappointment",
+        useAsFallback: true,
         name: "'Damn' Gesture",
         url: "aic-runtime-deps/animations/emotions/Disappointed.fbx",
         motion:
@@ -310,7 +366,10 @@ export const emotionAnimations: {
     3: [
       {
         intensity: 3,
+        metaType: "motion",
         emotion: "disappointment",
+        key: "disappointment",
+        useAsFallback: true,
         name: "'God Damn' Gesture",
         url: "aic-runtime-deps/animations/emotions/Big_Disappointed.fbx",
         motion:
@@ -326,7 +385,10 @@ export const emotionAnimations: {
     1: [
       {
         intensity: 1,
+        metaType: "motion",
         emotion: "annoyance",
+        key: "annoyance",
+        useAsFallback: true,
         name: "Looking Away",
         url: "aic-runtime-deps/animations/emotions/Look_Away_Gesture.fbx",
         motion:
@@ -338,7 +400,10 @@ export const emotionAnimations: {
       },
       {
         intensity: 1,
+        metaType: "motion",
         emotion: "annoyance",
+        key: "annoyance",
+        useAsFallback: false,
         name: "Slight Head Tilt",
         url: "aic-runtime-deps/animations/emotions/Thriller_Idle.fbx",
         motion:
@@ -350,7 +415,10 @@ export const emotionAnimations: {
       },
       {
         intensity: 1,
+        metaType: "motion",
         emotion: "annoyance",
+        key: "annoyance",
+        useAsFallback: true,
         name: "Head Shake",
         url: "aic-runtime-deps/animations/emotions/Annoyed_Head_Shake.fbx",
         motion:
@@ -364,7 +432,10 @@ export const emotionAnimations: {
     2: [
       {
         intensity: 2,
+        metaType: "motion",
         emotion: "annoyance",
+        key: "annoyance",
+        useAsFallback: true,
         name: "Defeat",
         url: "aic-runtime-deps/animations/emotions/Defeated.fbx",
         motion:
@@ -378,7 +449,10 @@ export const emotionAnimations: {
     3: [
       {
         intensity: 3,
+        metaType: "motion",
         emotion: "annoyance",
+        key: "annoyance",
+        useAsFallback: true,
         name: "Big Defeat",
         url: "aic-runtime-deps/animations/emotions/Defeat_Idle.fbx",
         motion:
@@ -394,7 +468,10 @@ export const emotionAnimations: {
     1: [
       {
         intensity: 1,
+        metaType: "motion",
         emotion: "gratitude",
+        key: "gratitude",
+        useAsFallback: true,
         name: "Thankful",
         url: "aic-runtime-deps/animations/emotions/Thankful.fbx",
         motion: "Slight bow with one hand moving to the heart",
@@ -405,7 +482,10 @@ export const emotionAnimations: {
       },
       {
         intensity: 1,
+        metaType: "motion",
         emotion: "gratitude",
+        key: "gratitude",
+        useAsFallback: false,
         name: "Quick Formal Bow",
         url: "aic-runtime-deps/animations/emotions/Quick_Formal_Bow.fbx",
         motion: "Quick bow with a small angle and a stiff stance",
@@ -416,7 +496,10 @@ export const emotionAnimations: {
       },
       {
         intensity: 1,
+        metaType: "motion",
         emotion: "gratitude",
+        key: "gratitude",
+        useAsFallback: false,
         name: "Quick Bow",
         url: "aic-runtime-deps/animations/emotions/Quick_Informal_Bow.fbx",
         motion: "Quick bow with a slightly loose stance",
@@ -431,7 +514,10 @@ export const emotionAnimations: {
     1: [
       {
         intensity: 1,
+        metaType: "motion",
         emotion: "approval",
+        key: "approval",
+        useAsFallback: true,
         name: "Reluctantly Agreeing",
         url: "aic-runtime-deps/animations/emotions/Agreeing.fbx",
         motion:
@@ -443,7 +529,10 @@ export const emotionAnimations: {
       },
       {
         intensity: 1,
+        metaType: "motion",
         emotion: "approval",
+        key: "approval",
+        useAsFallback: true,
         name: "Light Head Nod",
         url: "aic-runtime-deps/animations/emotions/Sarcastic_Head_Nod.fbx",
         motion: "Lightly nodding the head with a slight wind up time",
@@ -454,7 +543,10 @@ export const emotionAnimations: {
       },
       {
         intensity: 1,
+        metaType: "motion",
         emotion: "approval",
+        key: "approval",
+        useAsFallback: true,
         name: "Acknowledging",
         url: "aic-runtime-deps/animations/emotions/Acknowledging.fbx",
         motion: "Slight head nod, but in an assuring way",
@@ -465,7 +557,10 @@ export const emotionAnimations: {
       },
       {
         intensity: 1,
+        metaType: "motion",
         emotion: "approval",
+        key: "approval",
+        useAsFallback: true,
         name: "Light Nodding",
         url: "aic-runtime-deps/animations/emotions/Head_Nod_Yes.fbx",
         motion: "A confident, yet relaxed head nod",
@@ -478,7 +573,10 @@ export const emotionAnimations: {
     2: [
       {
         intensity: 2,
+        metaType: "motion",
         emotion: "approval",
+        key: "approval",
+        useAsFallback: true,
         name: "There You Go",
         url: "aic-runtime-deps/animations/emotions/Happy_Hand_Gesture.fbx",
         motion:
@@ -490,7 +588,10 @@ export const emotionAnimations: {
       },
       {
         intensity: 2,
+        metaType: "motion",
         emotion: "approval",
+        key: "approval",
+        useAsFallback: true,
         name: "Hard Head Nod",
         url: "aic-runtime-deps/animations/emotions/Hard_Head_Nod.fbx",
         motion: "An abrupt, yet confident head nod",
@@ -503,7 +604,10 @@ export const emotionAnimations: {
     3: [
       {
         intensity: 3,
+        metaType: "motion",
         emotion: "approval",
+        key: "approval",
+        useAsFallback: true,
         name: "Thumbs Up",
         url: "aic-runtime-deps/animations/emotions/Standing_Thumbs_Up.fbx",
         motion: "Confident thumbs up with a slight 'fist pump' motion",
@@ -518,7 +622,10 @@ export const emotionAnimations: {
     1: [
       {
         intensity: 1,
+        metaType: "motion",
         emotion: "pride",
+        key: "pride",
+        useAsFallback: true,
         name: "Head Turn",
         url: "aic-runtime-deps/animations/emotions/Cocky_Head_Turn.fbx",
         motion:
@@ -530,7 +637,10 @@ export const emotionAnimations: {
       },
       {
         intensity: 1,
+        metaType: "motion",
         emotion: "pride",
+        key: "pride",
+        useAsFallback: true,
         name: "Fist Pump",
         url: "aic-runtime-deps/animations/emotions/Fist_Pump.fbx",
         motion: "Slight fist pump at chest height",
@@ -543,7 +653,10 @@ export const emotionAnimations: {
     2: [
       {
         intensity: 2,
+        metaType: "motion",
         emotion: "pride",
+        key: "pride",
+        useAsFallback: true,
         name: "Finger Guns",
         url: "aic-runtime-deps/animations/emotions/Pointing_Gesture.fbx",
         motion: "Both hands doing finger guns while slightly leaning back",
@@ -554,7 +667,10 @@ export const emotionAnimations: {
       },
       {
         intensity: 2,
+        metaType: "motion",
         emotion: "pride",
+        key: "pride",
+        useAsFallback: true,
         name: "Being Cocky",
         url: "aic-runtime-deps/animations/emotions/Being_Cocky.fbx",
         motion:
@@ -570,7 +686,10 @@ export const emotionAnimations: {
     1: [
       {
         intensity: 1,
+        metaType: "motion",
         emotion: "neutral",
+        key: "neutral",
+        useAsFallback: false,
         name: "Neutral",
         url: "aic-runtime-deps/animations/emotions/Neutral.fbx",
         motion: "Idle posture",
@@ -581,7 +700,10 @@ export const emotionAnimations: {
       },
       {
         intensity: 1,
+        metaType: "motion",
         emotion: "neutral",
+        key: "neutral",
+        useAsFallback: true,
         name: "Slight Head Turn",
         url: "aic-runtime-deps/animations/emotions/Head_Gesture.fbx",
         motion: "Slightly turning the head with minor hand movements",
@@ -592,7 +714,10 @@ export const emotionAnimations: {
       },
       {
         intensity: 1,
+        metaType: "motion",
         emotion: "neutral",
+        key: "neutral",
+        useAsFallback: false,
         name: "Giving a Talk",
         url: "aic-runtime-deps/animations/emotions/Formal_Talking.fbx",
         motion: "Hands together while idling with slight head nods",
@@ -603,31 +728,40 @@ export const emotionAnimations: {
       },
       {
         intensity: 1,
+        metaType: "motion",
         emotion: "neutral",
+        key: "neutral",
+        useAsFallback: true,
         name: "Slight Head Shake",
-        url: "aic-runtime-deps/animations/emoHtions/Short_Talking.fbx",
+        url: "aic-runtime-deps/animations/emotions/Short_Talking.fbx",
         motion: "Slight head shaking with a double-handed talking gesture",
         motionType: "Gesture",
         type: "fbx",
         onlyWhileTalking: true,
         motionSituation: "informal",
       },
-    ],
-    2: [
       {
-        intensity: 2,
+        intensity: 1,
+        metaType: "motion",
         emotion: "neutral",
-        name: "Slight Turn",
-        url: "aic-runtime-deps/animations/emotions/Catwalk_Idle_Twist_R.fbx",
-        motion: "Slight head turn while idling",
-        motionType: "Gesture",
+        key: "neutral",
+        useAsFallback: true,
+        name: "Light Breathing",
+        url: "aic-runtime-deps/animations/emotions/Idle.fbx",
+        motion: "Breathing lightly while swaying slightly from side to side",
+        motionType: "Loop",
         type: "fbx",
         onlyWhileTalking: false,
         motionSituation: "informal",
       },
+    ],
+    2: [
       {
         intensity: 2,
+        metaType: "motion",
         emotion: "neutral",
+        key: "neutral",
+        useAsFallback: true,
         name: "Slight Turn Idle",
         url: "aic-runtime-deps/animations/emotions/Unarmed_Idle.fbx",
         motion:
@@ -639,7 +773,24 @@ export const emotionAnimations: {
       },
       {
         intensity: 2,
+        metaType: "motion",
         emotion: "neutral",
+        key: "neutral",
+        useAsFallback: true,
+        name: "Slight Turn",
+        url: "aic-runtime-deps/animations/emotions/Catwalk_Idle_Twist_R.fbx",
+        motion: "Slight head turn while idling",
+        motionType: "Gesture",
+        type: "fbx",
+        onlyWhileTalking: false,
+        motionSituation: "informal",
+      },
+      {
+        intensity: 2,
+        metaType: "motion",
+        emotion: "neutral",
+        key: "neutral",
+        useAsFallback: true,
         name: "Talking",
         url: "aic-runtime-deps/animations/emotions/Talking.fbx",
         motion:
@@ -651,7 +802,10 @@ export const emotionAnimations: {
       },
       {
         intensity: 2,
+        metaType: "motion",
         emotion: "neutral",
+        key: "neutral",
+        useAsFallback: true,
         name: "Hand Fanning",
         url: "aic-runtime-deps/animations/emotions/Dwarf_Idle.fbx",
         motion: "Idle head movements and posture while fanning air to the face",
@@ -662,7 +816,10 @@ export const emotionAnimations: {
       },
       {
         intensity: 2,
+        metaType: "motion",
         emotion: "neutral",
+        key: "neutral",
+        useAsFallback: true,
         name: "Look Around",
         url: "aic-runtime-deps/animations/emotions/Idle_Look_Around.fbx",
         motion: "Looking at fingers and looking around",
@@ -675,7 +832,10 @@ export const emotionAnimations: {
     3: [
       {
         intensity: 3,
+        metaType: "motion",
         emotion: "neutral",
+        key: "neutral",
+        useAsFallback: true,
         name: "Hand Gesture",
         url: "aic-runtime-deps/animations/emotions/Long_Talking.fbx",
         motion:
@@ -685,24 +845,16 @@ export const emotionAnimations: {
         onlyWhileTalking: true,
         motionSituation: "informal",
       },
-      {
-        intensity: 3,
-        emotion: "neutral",
-        name: "Light Breathing",
-        url: "aic-runtime-deps/animations/emotions/Idle.fbx",
-        motion: "Breathing lightly while swaying slightly from side to side",
-        motionType: "Loop",
-        type: "fbx",
-        onlyWhileTalking: false,
-        motionSituation: "informal",
-      },
     ],
   },
   anger: {
     1: [
       {
         intensity: 1,
+        metaType: "motion",
         emotion: "anger",
+        key: "anger",
+        useAsFallback: true,
         name: "Heavy Breathing",
         url: "aic-runtime-deps/animations/emotions/Breathing_Idle.fbx",
         motion: "Slightly heavy breathing with a kind of tense posture",
@@ -715,7 +867,10 @@ export const emotionAnimations: {
     2: [
       {
         intensity: 2,
+        metaType: "motion",
         emotion: "anger",
+        key: "anger",
+        useAsFallback: true,
         name: "Angry Gesture",
         url: "aic-runtime-deps/animations/emotions/Short_Angry_Gesture.fbx",
         motion: "Threatening head gesture while slightly leaning forward",
@@ -726,7 +881,10 @@ export const emotionAnimations: {
       },
       {
         intensity: 2,
+        metaType: "motion",
         emotion: "anger",
+        key: "anger",
+        useAsFallback: true,
         name: "angry",
         url: "aic-runtime-deps/animations/emotions/Angry_Gesture.fbx",
         motion: "Punching down lightly with both hands with clenched fists",
@@ -737,7 +895,10 @@ export const emotionAnimations: {
       },
       {
         intensity: 2,
+        metaType: "motion",
         emotion: "anger",
+        key: "anger",
+        useAsFallback: true,
         name: "Arguing",
         url: "aic-runtime-deps/animations/emotions/Standing_Arguing.fbx",
         motion:
@@ -749,7 +910,10 @@ export const emotionAnimations: {
       },
       {
         intensity: 2,
+        metaType: "motion",
         emotion: "anger",
+        key: "anger",
+        useAsFallback: true,
         name: "Shaking fist",
         url: "aic-runtime-deps/animations/emotions/Shake_Fist.fbx",
         motion: "Shaking one fist in the air",
@@ -762,7 +926,10 @@ export const emotionAnimations: {
     3: [
       {
         intensity: 3,
+        metaType: "motion",
         emotion: "anger",
+        key: "anger",
+        useAsFallback: true,
         name: "Angry Talking",
         url: "aic-runtime-deps/animations/emotions/Angry_Talking.fbx",
         motion:
@@ -778,7 +945,10 @@ export const emotionAnimations: {
     1: [
       {
         intensity: 1,
+        metaType: "motion",
         emotion: "sadness",
+        key: "sadness",
+        useAsFallback: false,
         name: "Defeated Finger Snap",
         url: "aic-runtime-deps/animations/emotions/Small_Disappointed.fbx",
         motion:
@@ -790,7 +960,10 @@ export const emotionAnimations: {
       },
       {
         intensity: 1,
+        metaType: "motion",
         emotion: "sadness",
+        key: "sadness",
+        useAsFallback: false,
         name: "Light Shrug",
         url: "aic-runtime-deps/animations/emotions/Shrugging.fbx",
         motion: "Light shrugging motion with one shoulder",
@@ -803,7 +976,10 @@ export const emotionAnimations: {
     2: [
       {
         intensity: 2,
+        metaType: "motion",
         emotion: "sadness",
+        key: "sadness",
+        useAsFallback: true,
         name: "Sad Stance",
         url: "aic-runtime-deps/animations/emotions/Sad_Idle.fbx",
         motion: "Slightly forward leaning posture while looking at the ground",
@@ -814,7 +990,10 @@ export const emotionAnimations: {
       },
       {
         intensity: 2,
+        metaType: "motion",
         emotion: "sadness",
+        key: "sadness",
+        useAsFallback: true,
         name: "Sad Kick",
         url: "aic-runtime-deps/animations/emotions/Sad_Idle_Kick.fbx",
         motion:
@@ -826,7 +1005,10 @@ export const emotionAnimations: {
       },
       {
         intensity: 2,
+        metaType: "motion",
         emotion: "sadness",
+        key: "sadness",
+        useAsFallback: true,
         name: "Defeated Posture",
         url: "aic-runtime-deps/animations/emotions/Rejected.fbx",
         motion: "Slumping over and to the side while looking at the ground",
@@ -839,7 +1021,10 @@ export const emotionAnimations: {
     3: [
       {
         intensity: 3,
+        metaType: "motion",
         emotion: "sadness",
+        key: "sadness",
+        useAsFallback: true,
         name: "Crying",
         url: "aic-runtime-deps/animations/emotions/Defeat.fbx",
         motion:
@@ -855,7 +1040,10 @@ export const emotionAnimations: {
     1: [
       {
         intensity: 1,
+        metaType: "motion",
         emotion: "embarrassment",
+        key: "embarrassment",
+        useAsFallback: true,
         name: "Bashful Idle",
         url: "aic-runtime-deps/animations/emotions/Bashful.fbx",
         motion:
@@ -869,7 +1057,10 @@ export const emotionAnimations: {
     2: [
       {
         intensity: 2,
+        metaType: "motion",
         emotion: "embarrassment",
+        key: "embarrassment",
+        useAsFallback: true,
         name: "Cute Embarrassed",
         url: "aic-runtime-deps/animations/emotions/Crying.fbx",
         motion:
@@ -885,7 +1076,10 @@ export const emotionAnimations: {
     1: [
       {
         intensity: 1,
+        metaType: "motion",
         emotion: "curiosity",
+        key: "curiosity",
+        useAsFallback: true,
         name: "Cute Thinking",
         url: "aic-runtime-deps/animations/emotions/Thinking.fbx",
         motion:
@@ -901,7 +1095,24 @@ export const emotionAnimations: {
     1: [
       {
         intensity: 1,
+        metaType: "motion",
         emotion: "joy",
+        key: "joy",
+        useAsFallback: true,
+        name: "Cute Swaying",
+        url: "aic-runtime-deps/animations/emotions/Happy.fbx",
+        motion: "Swaying from side to side and swinging arms in a cute manner",
+        motionType: "Loop",
+        type: "fbx",
+        onlyWhileTalking: false,
+        motionSituation: "informal",
+      },
+      {
+        intensity: 1,
+        metaType: "motion",
+        emotion: "joy",
+        key: "joy",
+        useAsFallback: true,
         name: "Happy Idle",
         url: "aic-runtime-deps/animations/emotions/Happy_Idle.fbx",
         motion: "Happily swaying lightly from side to side",
@@ -914,18 +1125,10 @@ export const emotionAnimations: {
     2: [
       {
         intensity: 2,
+        metaType: "motion",
         emotion: "joy",
-        name: "Cute Swaying",
-        url: "aic-runtime-deps/animations/emotions/Happy.fbx",
-        motion: "Swaying from side to side and swinging arms in a cute manner",
-        motionType: "Loop",
-        type: "fbx",
-        onlyWhileTalking: false,
-        motionSituation: "informal",
-      },
-      {
-        intensity: 2,
-        emotion: "joy",
+        key: "joy",
+        useAsFallback: false,
         name: "Intense Clapping",
         url: "aic-runtime-deps/animations/emotions/Intense_Clapping.fbx",
         motion: "Clapping intensely",
@@ -938,18 +1141,10 @@ export const emotionAnimations: {
     3: [
       {
         intensity: 3,
+        metaType: "motion",
         emotion: "joy",
-        name: "Wide Clapping",
-        url: "aic-runtime-deps/animations/emotions/Standing_Clap.fbx",
-        motion: "Clapping with arms wide apart during clap wind up",
-        motionType: "Gesture",
-        type: "fbx",
-        onlyWhileTalking: false,
-        motionSituation: "informal",
-      },
-      {
-        intensity: 3,
-        emotion: "joy",
+        key: "joy",
+        useAsFallback: true,
         name: "Happy Jump",
         url: "aic-runtime-deps/animations/emotions/Joyful_Jump.fbx",
         motion:
@@ -965,7 +1160,10 @@ export const emotionAnimations: {
     1: [
       {
         intensity: 1,
+        metaType: "motion",
         emotion: "disapproval",
+        key: "disapproval",
+        useAsFallback: true,
         name: "Wound-up Head Shake",
         url: "aic-runtime-deps/animations/emotions/Thoughtful_Head_Shake.fbx",
         motion:
@@ -979,7 +1177,10 @@ export const emotionAnimations: {
     2: [
       {
         intensity: 2,
+        metaType: "motion",
         emotion: "disapproval",
+        key: "disapproval",
+        useAsFallback: true,
         name: "Finger Wagging",
         url: "aic-runtime-deps/animations/emotions/No.fbx",
         motion:
@@ -991,7 +1192,10 @@ export const emotionAnimations: {
       },
       {
         intensity: 2,
+        metaType: "motion",
         emotion: "disapproval",
+        key: "disapproval",
+        useAsFallback: true,
         name: "Finger Point",
         url: "aic-runtime-deps/animations/emotions/Angry_Point.fbx",
         motion:
@@ -1005,7 +1209,10 @@ export const emotionAnimations: {
     3: [
       {
         intensity: 3,
+        metaType: "motion",
         emotion: "disapproval",
+        key: "disapproval",
+        useAsFallback: true,
         name: "Definitive Rejection",
         url: "aic-runtime-deps/animations/emotions/Petting.fbx",
         motion:
@@ -1017,7 +1224,10 @@ export const emotionAnimations: {
       },
       {
         intensity: 3,
+        metaType: "motion",
         emotion: "disapproval",
+        key: "disapproval",
+        useAsFallback: true,
         name: "Emoted Finger Wagging",
         url: "aic-runtime-deps/animations/emotions/Big_No.fbx",
         motion:
@@ -1033,7 +1243,10 @@ export const emotionAnimations: {
     1: [
       {
         intensity: 1,
+        metaType: "motion",
         emotion: "confusion",
+        key: "confusion",
+        useAsFallback: true,
         name: "Head Tilt",
         url: "aic-runtime-deps/animations/emotions/Neck_Stretching.fbx",
         motion: "Head tilting from side to side",
@@ -1044,7 +1257,10 @@ export const emotionAnimations: {
       },
       {
         intensity: 1,
+        metaType: "motion",
         emotion: "confusion",
+        key: "confusion",
+        useAsFallback: true,
         name: "Whatever",
         url: "aic-runtime-deps/animations/emotions/Whatever_Gesture.fbx",
         motion:
@@ -1058,7 +1274,10 @@ export const emotionAnimations: {
     2: [
       {
         intensity: 2,
+        metaType: "motion",
         emotion: "confusion",
+        key: "confusion",
+        useAsFallback: true,
         name: "Confused Shrug",
         url: "aic-runtime-deps/animations/emotions/Confused_Shrugging.fbx",
         motion:
@@ -1072,7 +1291,10 @@ export const emotionAnimations: {
     3: [
       {
         intensity: 3,
+        metaType: "motion",
         emotion: "confusion",
+        key: "confusion",
+        useAsFallback: true,
         name: "Frantic Look Around",
         url: "aic-runtime-deps/animations/emotions/Looking_Around.fbx",
         motion: "Frantically looking around",
@@ -1087,7 +1309,10 @@ export const emotionAnimations: {
     1: [
       {
         intensity: 1,
+        metaType: "motion",
         emotion: "fear",
+        key: "fear",
+        useAsFallback: false,
         name: "Ready Stance",
         url: "aic-runtime-deps/animations/emotions/Fearful_Idle.fbx",
         motion: "Standing with legs in a side stance",
@@ -1098,7 +1323,10 @@ export const emotionAnimations: {
       },
       {
         intensity: 1,
+        metaType: "motion",
         emotion: "fear",
+        key: "fear",
+        useAsFallback: true,
         name: "Fearful Stance",
         url: "aic-runtime-deps/animations/emotions/Zombie_Idle.fbx",
         motion: "Wide stance hands at belly height, ready to take action",
@@ -1111,7 +1339,10 @@ export const emotionAnimations: {
     2: [
       {
         intensity: 2,
+        metaType: "motion",
         emotion: "fear",
+        key: "fear",
+        useAsFallback: true,
         name: "Fearful",
         url: "aic-runtime-deps/animations/emotions/Look_Around.fbx",
         motion:
@@ -1125,7 +1356,10 @@ export const emotionAnimations: {
     3: [
       {
         intensity: 3,
+        metaType: "motion",
         emotion: "fear",
+        key: "fear",
+        useAsFallback: true,
         name: "Terrified",
         url: "aic-runtime-deps/animations/emotions/Terrified.fbx",
         motion:
@@ -1141,8 +1375,11 @@ export const emotionAnimations: {
     1: [
       {
         intensity: 1,
+        metaType: "motion",
         emotion: "excitement",
-        name: "Excited Talking",
+        key: "excitement",
+        useAsFallback: false,
+        name: "Slow Talking",
         url: "aic-runtime-deps/animations/emotions/Slow_Speech_Talking.fbx",
         motion: "Emoted Arm Gestures in a talking motion",
         motionType: "Gesture",
@@ -1152,7 +1389,10 @@ export const emotionAnimations: {
       },
       {
         intensity: 1,
+        metaType: "motion",
         emotion: "excitement",
+        key: "excitement",
+        useAsFallback: true,
         name: "Excited Hand Gesture",
         url: "aic-runtime-deps/animations/emotions/Hands_Forward_Gesture.fbx",
         motion: "Putting hands forwards together while slightly leaning back",
@@ -1165,7 +1405,10 @@ export const emotionAnimations: {
     3: [
       {
         intensity: 3,
+        metaType: "motion",
         emotion: "excitement",
+        key: "excitement",
+        useAsFallback: true,
         name: "Excited Talking",
         url: "aic-runtime-deps/animations/emotions/Excited_Talking.fbx",
         motion: "Doing intense arm and hand movements while talking",

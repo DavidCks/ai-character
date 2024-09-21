@@ -1,26 +1,31 @@
 import {
   MotionExpression,
   MouthExpression,
+  FaceExpression,
   VRMManager,
 } from "@davidcks/r3f-vrm";
-import { FaceExpression } from "piper-wasm/expressions";
-import { LoopOnce } from "three";
-import * as THREE from "three";
-import { LoopType } from "../../r3f-vrm/src/utils/ExpressionManager";
+import { FaceExpression as PiperFaceExporession } from "piper-wasm/expressions";
+import { LoopType } from "@davidcks/r3f-vrm/src/utils/ExpressionManager";
 import {
   emotionAnimations,
   emotions,
-  EmotionAnimationType,
+  EmotionAnimationMetadataType,
 } from "./repo/animations/emotions";
 import { VoiceNames, VoiceType, voices } from "./repo/voices";
 import { piperGenerate, piperPhonemize } from "piper-wasm";
+import { InteractionAnimationMetadataType } from "./repo/animations/interactions";
+import { Chain, ChainManager } from "./managers/ChainManager";
 
 export type AICharacterEventDataType = "motion" | "face" | "mouth";
 export type AICharacterEventListenerType = (
   e:
     | {
         type: "motion";
-        data: EmotionAnimationType;
+        data: EmotionAnimationMetadataType;
+      }
+    | {
+        type: "interaction";
+        data: InteractionAnimationMetadataType;
       }
     | {
         type: "face";
@@ -35,13 +40,21 @@ export type AICharacterEventType = "change";
 
 export class AICharacterManager {
   private _voiceName: VoiceNames;
+  private _uid: string;
   private _currentEmotion: string;
   private _currentTargetEmotion: string;
   private _currentEmotionAnimationIntensity: 1 | 2 | 3;
   private _currentFaceEmotionIntensity: number;
   private _currentEmotionAnimationName: string;
+  private _chainManager: ChainManager | undefined;
   public vrmManager: VRMManager;
 
+  public get uid() {
+    return this._uid;
+  }
+  public get chainManager() {
+    return this._chainManager ?? new ChainManager(this);
+  }
   public get voiceName() {
     return this._voiceName;
   }
@@ -68,6 +81,7 @@ export class AICharacterManager {
   constructor(vrmManager: VRMManager, voiceName?: VoiceNames) {
     this.vrmManager = vrmManager;
     this._voiceName = voiceName ?? "yui";
+    this._uid = crypto.randomUUID();
     this._currentEmotion = "neutral";
     this._currentFaceEmotionIntensity = 0.5;
     this._currentEmotionAnimationIntensity = 1;
@@ -101,8 +115,45 @@ export class AICharacterManager {
     );
   }
 
+  _onExpressionUpdate = (
+    e: MotionExpression<any> | FaceExpression<any> | MouthExpression<any>
+  ) => {
+    if (e.metadata) {
+      if (e.metadata.metaType === "motion") {
+        const motionMetadata = e.metadata as EmotionAnimationMetadataType;
+        this._currentEmotion = motionMetadata.emotion;
+        this._currentEmotionAnimationIntensity = motionMetadata.intensity;
+        this._currentEmotionAnimationName = motionMetadata.name;
+        // Notify listeners
+        if (this._eventListeners["change"]) {
+          this._eventListeners["change"].forEach((l) => {
+            l({
+              type: "motion",
+              data: motionMetadata,
+            });
+          });
+        }
+      } else if (e.metadata.metaType === "interaction") {
+        const interactionMetadata =
+          e.metadata as InteractionAnimationMetadataType;
+        this._currentEmotionAnimationIntensity = interactionMetadata.intensity;
+        this._currentEmotionAnimationName = interactionMetadata.name;
+
+        // Notify listeners
+        if (this._eventListeners["change"]) {
+          this._eventListeners["change"].forEach((l) => {
+            l({
+              type: "interaction",
+              data: interactionMetadata,
+            });
+          });
+        }
+      }
+    }
+  };
+
   /**
-   * Sets the emotion of the VRM character by applying a facial expression
+   * Sets the emotion of the VRM character by applying a facial and motion expression
    * corresponding to the provided emotion and intensity. If an invalid emotion is
    * provided, the emotion will default to "neutral".
    *
@@ -115,6 +166,9 @@ export class AICharacterManager {
    * @param {number} intensity - The intensity of the emotion, a value between 0 and 1.
    *                             Higher values represent stronger expressions.
    *
+   * @param {FaceExpression[]} faceExpressions - An override if you want to customize the face expressions
+   * @param {MotionExpression[]} motionExpressions - An override if you want to customize the motion expressions
+   *
    * @example
    * setEmotion('joy', 0.8);
    * setEmotion('unknownEmotion', 0.5); // Will default to "neutral"
@@ -122,18 +176,18 @@ export class AICharacterManager {
   async setEmotion(
     newEmotion: string,
     intensity?: number,
-    faceExpressions?: FaceExpression[]
+    faceExpressions?: FaceExpression[],
+    motionExpressions?: MotionExpression<EmotionAnimationMetadataType>[]
   ): Promise<void> {
     return new Promise(async (resolve, reject) => {
       let started = false;
       this._currentTargetEmotion = newEmotion;
       intensity ??= this._currentEmotionAnimationIntensity;
-      const motionExpressions = await this._getEmotionMotionChain(
-        newEmotion,
-        intensity
-      );
+      const newMotionExpressions =
+        motionExpressions ??
+        (await this._getEmotionMotionChain(newEmotion, intensity));
       const newFaceExpressions = faceExpressions ?? [
-        FaceExpression.fromDistilbertGoEmotions(
+        PiperFaceExporession.fromDistilbertGoEmotions(
           {
             label: newEmotion,
             score: intensity,
@@ -143,7 +197,7 @@ export class AICharacterManager {
       ];
       const expressionsStream = this.vrmManager.expressionManager.express({
         faceExpressions: newFaceExpressions,
-        motionExpressions: motionExpressions,
+        motionExpressions: newMotionExpressions,
         loopMotion: LoopType.FastForward,
       });
       expressionsStream.subscribe((e: any) => {
@@ -151,21 +205,7 @@ export class AICharacterManager {
           resolve(void 0);
           started = true;
         }
-        if (e.metadata && e.metadata.metaType === "motion") {
-          const motionMetadata = e.metadata as EmotionAnimationType;
-          this._currentEmotion = motionMetadata.emotion;
-          this._currentEmotionAnimationIntensity = motionMetadata.intensity;
-          this._currentEmotionAnimationName = motionMetadata.name;
-          // Notify listeners
-          if (this._eventListeners["change"]) {
-            this._eventListeners["change"].forEach((l) => {
-              l({
-                type: "motion",
-                data: motionMetadata,
-              });
-            });
-          }
-        }
+        this._onExpressionUpdate(e);
       });
     });
   }
@@ -191,10 +231,39 @@ export class AICharacterManager {
     );
   }
 
+  /**
+   * Says the provided text.
+   * Emotions and expressions are inferred from the text.
+   *
+   * @param {string} text - The text to be spoken.
+   * @param {VoiceNames} voiceName - The name of the voice to be used.
+   *                                 Will default to using the voiceName provided in the props if provided,
+   *                                 else it will use the default voice.
+   * @param {(progress: number) => void} onProgress - A callback function that will be called with the progress of the speech synthesis.
+   * @param {string} emotionOverride - An override if you want to customize the emotion.
+   *                           It should be one of the following values:
+   *                          'love', 'joy', 'gratitude', 'caring', 'excitement', 'admiration',
+   *                         'optimism', 'pride', 'amusement', 'relief', 'approval', 'desire',
+   *                       'curiosity', 'surprise', 'realization', 'neutral', 'confusion',
+   *                     'embarrassment', 'nervousness', 'annoyance', 'disapproval', 'remorse',
+   *                  'fear', 'disappointment', 'sadness', 'anger', 'grief', 'disgust'.
+   * @param {number} intensityOverride - An override if you want to customize the intensity of the emotion.
+   *                           Should be a value between 0 and 1.
+   *                           Higher values represent stronger expressions.
+   * @param {FaceExpression[]} faceExpressionsOverride - An override if you want to customize the face expressions
+   * @param {MotionExpression[]} motionExpressionsOverride - An override if you want to customize the motion expressions
+   *
+   * @example
+   * character.say("Hello world!");
+   */
   async say(
     text: string,
     voiceName?: VoiceNames,
-    onProgress?: (arg0: number) => void
+    onProgress?: (arg0: number) => void,
+    emotionOverride?: string,
+    intensityOverride?: number,
+    faceExpressionsOverride?: FaceExpression[],
+    motionExpressionsOverride?: MotionExpression<EmotionAnimationMetadataType>[]
   ) {
     // selected voice
     const selectedVoice = voices[voiceName ?? this._voiceName];
@@ -225,7 +294,7 @@ export class AICharacterManager {
       expressionWorkerUrl
     );
     const inferredFaceExpressions = piperData.expressions
-      .faceExpressions as FaceExpression[];
+      .faceExpressions as PiperFaceExporession[];
     const inferredEmotion =
       inferredFaceExpressions.length > 0
         ? inferredFaceExpressions[0].emotion
@@ -237,9 +306,13 @@ export class AICharacterManager {
     const inferredMouthExpressions = piperData.expressions
       .mouthExpressions as MouthExpression[];
     const setEmotionPromise = this.setEmotion(
-      inferredEmotion,
-      inferredEmotionIntensity,
-      inferredFaceExpressions.length > 0 ? inferredFaceExpressions : undefined
+      emotionOverride ?? inferredEmotion,
+      intensityOverride ?? inferredEmotionIntensity,
+      faceExpressionsOverride ??
+        (inferredFaceExpressions.length > 0
+          ? inferredFaceExpressions
+          : undefined),
+      motionExpressionsOverride ?? undefined
     );
     await setEmotionPromise;
 
@@ -261,7 +334,7 @@ export class AICharacterManager {
   async _getEmotionMotionChain(
     emotion: string,
     intensity: number
-  ): Promise<MotionExpression<EmotionAnimationType>[]> {
+  ): Promise<MotionExpression<EmotionAnimationMetadataType>[]> {
     const normalizedIntensity = this._normalizeIntensity(intensity);
     const closestViableGesture = this._getClosestViableAnimation(
       emotion,
@@ -277,11 +350,11 @@ export class AICharacterManager {
     const gesturePromise = this.vrmManager.expressionManager.motion.x2motion(
       closestViableGesture.type,
       closestViableGesture.url
-    ) as Promise<MotionExpression<EmotionAnimationType>>;
+    ) as Promise<MotionExpression<EmotionAnimationMetadataType>>;
     const loopPromise = this.vrmManager.expressionManager.motion.x2motion(
       closestViableLoop.type,
       closestViableLoop.url
-    ) as Promise<MotionExpression<EmotionAnimationType>>;
+    ) as Promise<MotionExpression<EmotionAnimationMetadataType>>;
     const [gesture, loop] = await Promise.all([gesturePromise, loopPromise]);
     gesture.metadata = closestViableGesture;
     loop.metadata = closestViableLoop;
@@ -312,7 +385,7 @@ export class AICharacterManager {
     intensity: 1 | 2 | 3,
     motionType: "Gesture" | "Loop" = "Loop",
     isFallback = false
-  ): EmotionAnimationType {
+  ): EmotionAnimationMetadataType {
     const exactEmotionAnimations = this._getExactViableEmotionAnimations(
       emotion,
       intensity
@@ -400,7 +473,7 @@ export class AICharacterManager {
       );
     animationStream.subscribe((e: any) => {
       if (e.metadata && e.metadata.metaType === "motion") {
-        const motionMetadata = e.metadata as EmotionAnimationType;
+        const motionMetadata = e.metadata as EmotionAnimationMetadataType;
         this._currentEmotion = motionMetadata.emotion;
         this._currentEmotionAnimationIntensity = motionMetadata.intensity;
         this._currentEmotionAnimationName = motionMetadata.name;
@@ -426,12 +499,12 @@ export class AICharacterManager {
    * 'fear', 'disappointment', 'sadness', 'anger', 'grief', 'disgust'
    * @param {number} intensity  number between 0 and 1
    *
-   * @returns {EmotionAnimationType[] | undefined} an array of viable emotion animations
+   * @returns {EmotionAnimationMetadataType[] | undefined} an array of viable emotion animations
    */
   _getExactViableEmotionAnimations(
     emotion: string,
     intensity: number
-  ): EmotionAnimationType[] | undefined {
+  ): EmotionAnimationMetadataType[] | undefined {
     const normalizedIntensity = this._normalizeIntensity(intensity);
     const viableByEmotion = emotionAnimations[emotion]?.[normalizedIntensity];
     return viableByEmotion;

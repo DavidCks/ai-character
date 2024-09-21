@@ -1,7 +1,7 @@
 import React from "react";
 import { ControlsTypeProps } from "./ControlsType";
 import {
-  EmotionAnimationType,
+  EmotionAnimationMetadataType,
   emotionAnimations,
 } from "../../repo/animations/emotions";
 import { Slider } from "../common/Slider";
@@ -21,7 +21,7 @@ export const MotionControls: React.FC<ControlsTypeProps> = (props) => {
     setSelectedEmotionAnimationIntensity,
   ] = React.useState<1 | 2 | 3>(props.manager.currentEmotionAnimationIntensity);
   const [viableEmotionAnimations, setViableEmotionAnimations] = React.useState<
-    EmotionAnimationType[]
+    EmotionAnimationMetadataType[]
   >(
     props.manager._getExactViableEmotionAnimations(
       props.manager.currentEmotion,
@@ -87,41 +87,43 @@ export const MotionControls: React.FC<ControlsTypeProps> = (props) => {
           overflowX: "hidden",
         }}
       >
-        {viableEmotionAnimations.map((emotion: EmotionAnimationType) => {
-          return (
-            <Card
-              key={emotion.name}
-              title={emotion.name}
-              subtitle={emotion.motionType}
-              body={emotion.motion}
-              borderRadius={8}
-              backgroundColor={"#FAFAFAFF"}
-              icon={{
-                icon:
-                  playingEmotionAnimation === emotion.name ? FaStop : FaPlay,
-                iconSize: 16,
-                iconColor: "#393939FF",
-                radius: 48,
-                backgroundColor: "#D9D9D9",
-                onClick: () => {
-                  if (playingEmotionAnimation !== emotion.name) {
-                    props.manager._setAnimation(
-                      emotion.emotion,
-                      emotion.intensity,
-                      emotion.name
-                    );
-                  } else {
-                    props.manager._setAnimation(
-                      "neutral",
-                      1,
-                      emotionAnimations["neutral"]![1]![0]!.name
-                    );
-                  }
-                },
-              }}
-            ></Card>
-          );
-        })}
+        {viableEmotionAnimations.map(
+          (emotion: EmotionAnimationMetadataType) => {
+            return (
+              <Card
+                key={emotion.name}
+                title={emotion.name}
+                subtitle={emotion.motionType}
+                body={emotion.motion}
+                borderRadius={8}
+                backgroundColor={"#FAFAFAFF"}
+                icon={{
+                  icon:
+                    playingEmotionAnimation === emotion.name ? FaStop : FaPlay,
+                  iconSize: 16,
+                  iconColor: "#393939FF",
+                  radius: 48,
+                  backgroundColor: "#D9D9D9",
+                  onClick: () => {
+                    if (playingEmotionAnimation !== emotion.name) {
+                      props.manager._setAnimation(
+                        emotion.emotion,
+                        emotion.intensity,
+                        emotion.name
+                      );
+                    } else {
+                      props.manager._setAnimation(
+                        "neutral",
+                        1,
+                        emotionAnimations["neutral"]![1]![0]!.name
+                      );
+                    }
+                  },
+                }}
+              ></Card>
+            );
+          }
+        )}
       </div>
       <div
         style={{
