@@ -7,11 +7,16 @@
   "scripts": {
     "dev": "storybook dev",
     "redev": "rm -rf node_modules/@davidcks/r3f-vrm && cd ../r3f-vrm && bun i && bun run build && cd - && rm -rf node_modules/piper-wasm && cd ../3rd/piper-wasm/ && bun i && bun run build && cd - && rm -rf static/aic-runtime-deps/piper-deps/ && rm -rf static/aic-runtime-deps/vrm-deps/ && bun i && bun run build && bun run dev",
-    "build": "rm -rf static/aic-runtime-deps/piper-deps/ && rm -rf static/aic-runtime-deps/vrm-deps/ && rollup -c"
+    "build": "rm -rf static/aic-runtime-deps/piper-deps/ && rm -rf static/aic-runtime-deps/vrm-deps/ && rollup -c",
+    "resolve-symlinks": "find static/aic-runtime-deps -type l -exec cp --remove-destination {} {} \\;"
   },
+  "files": [
+    "static/"
+  ],
   "dependencies": {
     "@davidcks/r3f-vrm": "../r3f-vrm",
     "piper-wasm": "../3rd/piper-wasm",
+    "@react-three/fiber": "^8.17.5",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
     "react-icons": "^5.3.0"
@@ -38,6 +43,7 @@
   },
   "peerDependencies": {
     "typescript": "^5.0.0",
+    "@react-three/fiber": "^8.17.5",
     "react": "^18.3.1",
     "react-dom": "^18.3.1"
   },

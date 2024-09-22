@@ -8,7 +8,7 @@ import copy from "rollup-plugin-copy";
 import path from "path";
 
 export default {
-  input: "src/index.tsx",
+  input: "index.ts",
   output: [
     {
       file: "dist/index.cjs.js",

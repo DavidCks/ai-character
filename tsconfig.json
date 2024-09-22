@@ -3,9 +3,10 @@
       "src/**/*.tsx",
       "src/**/*.ts",
       "src/**/*.jsx",
-      "src/**/*.hs",
+      "src/**/*.js",
     ],
   "compilerOptions": {
+    "jsx": "react-jsx",
     "lib": ["ESNext", "DOM"],
     "module": "esnext",
     "target": "esnext",
@@ -20,7 +21,7 @@
     },
     "downlevelIteration": true,
     "skipLibCheck": true,
-    "jsx": "react-jsx",
+    
     "allowSyntheticDefaultImports": true,
     "forceConsistentCasingInFileNames": true,
     "allowJs": true,

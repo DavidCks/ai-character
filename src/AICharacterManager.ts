@@ -527,4 +527,8 @@ export class AICharacterManager {
       return Math.ceil(intensity) as 1 | 2 | 3;
     }
   }
+
+  update(delta: number) {
+    this.vrmManager.update(delta);
+  }
 }

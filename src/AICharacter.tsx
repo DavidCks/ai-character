@@ -1,5 +1,5 @@
 import { VRMAvatar, VRMManager } from "@davidcks/r3f-vrm/index";
-import { Vector3 } from "three";
+import { Camera, Scene, Vector3 } from "three";
 import { Html } from "@react-three/drei";
 import React from "react";
 import { AICharacterManager } from "./AICharacterManager";
@@ -8,6 +8,8 @@ import { VoiceNames } from "./repo/voices";
 import { emotionAnimations } from "./repo/animations/emotions";
 
 export type AICharacterProps = {
+  scene: Scene;
+  camera: Camera;
   vrmUrl?: string;
   voiceName?: VoiceNames;
   onLoad?: (manager: AICharacterManager) => void;
@@ -65,12 +67,14 @@ export const AICharacter: React.FC<AICharacterProps> = (props) => {
 
   return (
     <>
-      <Html position={[0, -1, -0.3]} distanceFactor={5} center>
-        {showControls && managerRef.current && (
+      {showControls && managerRef.current && (
+        <Html position={[0, -1, -0.3]} distanceFactor={5} center>
           <Controls manager={managerRef.current}></Controls>
-        )}
-      </Html>
+        </Html>
+      )}
       <VRMAvatar
+        scene={props.scene}
+        camera={props.camera}
         prefetchFiles={[]}
         motionExpressionWorkerUrl="aic-runtime-deps/vrm-deps/motion-expression-worker.bundle.js"
         initialPosition={new Vector3(0, 0, 0)}

@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Canvas } from "@react-three/fiber";
+import { Canvas, useThree } from "@react-three/fiber";
 import { Grid, OrbitControls } from "@react-three/drei";
 import { AICharacter } from "./AICharacter";
 
@@ -18,10 +18,17 @@ const AICharacterCanvas = () => {
         rotation={[0, 0, 0]} // Rotate to lie on the XZ plane
         position={[0, 0, 0]} // Position the grid at the origin
       />
-      <AICharacter />
+      <Character />
       <OrbitControls />
     </Canvas>
   );
 };
+
+const Character = () => {
+  const { scene, camera } = useThree();
+  return <AICharacter scene={scene} camera={camera} />;
+};
+
+export default Character;
 
 export { AICharacterCanvas };
