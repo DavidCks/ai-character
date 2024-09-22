@@ -1,1 +1,5 @@
-/home/odin/apps/three-vrm-audio/packages/3rd/piper-wasm/espeak-ng/espeak-ng-data/voices/mb/mb-es4
+language es-es 4
+language es 4
+name spanish-mbrola-4
+gender male
+mbrola es4 es4_phtrans

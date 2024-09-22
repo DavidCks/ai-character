@@ -1,1 +1,5 @@
-/home/odin/apps/three-vrm-audio/packages/3rd/piper-wasm/espeak-ng/espeak-ng-data/lang/jpx/ja
+name Japanese
+language ja
+phonemes ja
+
+intonation 4

@@ -1,1 +1,6 @@
-/home/odin/apps/three-vrm-audio/packages/3rd/piper-wasm/espeak-ng/espeak-ng-data/voices/mb/mb-ca2
+language fr-ca 6
+language fr 10
+name fr-canadian-mbrola-2
+gender male
+pitch 82 117
+mbrola ca2 ca_phtrans

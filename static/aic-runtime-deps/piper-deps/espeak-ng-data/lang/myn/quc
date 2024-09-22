@@ -1,1 +1,6 @@
-/home/odin/apps/three-vrm-audio/packages/3rd/piper-wasm/espeak-ng/espeak-ng-data/lang/myn/quc
+name K'iche'
+language quc
+status testing
+stressRule 3 // stress on final syllable
+stressAmp 8 8 20 15 0 0 25 25  // reduce unstressed vowels
+stressLength 120 120 200 150 0 0 250 250 // reduce unstressed vowels

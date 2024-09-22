@@ -1,1 +1,6 @@
-/home/odin/apps/three-vrm-audio/packages/3rd/piper-wasm/espeak-ng/espeak-ng-data/voices/mb/mb-in2
+name hindi-mbrola-2
+language hi 2
+gender female
+pitch 140 220
+mbrola in2 in_phtrans
+

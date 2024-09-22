@@ -1,1 +1,4 @@
-/home/odin/apps/three-vrm-audio/packages/3rd/piper-wasm/espeak-ng/espeak-ng-data/voices/mb/mb-jp1
+name japanese-mbrola-1
+language ja 1
+gender male
+mbrola jp1 jp_phtrans

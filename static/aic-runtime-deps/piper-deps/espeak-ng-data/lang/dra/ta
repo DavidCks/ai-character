@@ -1,1 +1,5 @@
-/home/odin/apps/three-vrm-audio/packages/3rd/piper-wasm/espeak-ng/espeak-ng-data/lang/dra/ta
+name Tamil
+language ta
+
+intonation 2
+consonants 80

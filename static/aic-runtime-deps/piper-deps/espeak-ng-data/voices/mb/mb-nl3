@@ -1,1 +1,6 @@
-/home/odin/apps/three-vrm-audio/packages/3rd/piper-wasm/espeak-ng/espeak-ng-data/voices/mb/mb-nl3
+name dutch-mbrola-3
+language nl 9
+gender female
+pitch 130 200
+mbrola nl3 nl_phtrans
+

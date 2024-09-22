@@ -1,1 +1,6 @@
-/home/odin/apps/three-vrm-audio/packages/3rd/piper-wasm/espeak-ng/espeak-ng-data/voices/mb/mb-la1
+name latin-mbrola-1
+language la 7
+gender male
+
+pitch 82 117
+mbrola la1 la1_phtrans

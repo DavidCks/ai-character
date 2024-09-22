@@ -1,1 +1,6 @@
-/home/odin/apps/three-vrm-audio/packages/3rd/piper-wasm/espeak-ng/espeak-ng-data/lang/sit/hak
+name Hakka Chinese
+language hak
+maintainer Chen Chien-ting <yoxem.tem98@nctu.edu.tw>
+status testing
+phonemes hak
+dictionary hak

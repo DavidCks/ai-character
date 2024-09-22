@@ -1,1 +1,7 @@
-/home/odin/apps/three-vrm-audio/packages/3rd/piper-wasm/espeak-ng/espeak-ng-data/voices/mb/mb-de5-en
+name en-german-5
+language en 9
+gender female
+
+pitch 140 220
+mbrola de5 de6_phtrans 22050
+

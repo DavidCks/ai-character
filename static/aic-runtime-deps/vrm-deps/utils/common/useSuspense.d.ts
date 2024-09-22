@@ -1,1 +1,5 @@
-/home/odin/apps/three-vrm-audio/packages/r3f-vrm/build/utils/common/useSuspense.d.ts
+declare function useSuspense<T>(promise: Promise<T>): {
+    read: () => any;
+};
+export default useSuspense;
+//# sourceMappingURL=useSuspense.d.ts.map

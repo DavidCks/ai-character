@@ -1,1 +1,5 @@
-/home/odin/apps/three-vrm-audio/packages/3rd/piper-wasm/espeak-ng/espeak-ng-data/voices/mb/mb-de8
+name german-mbrola-8
+language de 8
+gender male
+mbrola de8 de8_phtrans
+

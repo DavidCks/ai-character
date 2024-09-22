@@ -1,1 +1,6 @@
-/home/odin/apps/three-vrm-audio/packages/3rd/piper-wasm/espeak-ng/espeak-ng-data/voices/mb/mb-tl1
+name telugu-mbrola-1
+language te
+gender female
+pitch 160 260
+mbrola tl1 tl1_phtrans
+

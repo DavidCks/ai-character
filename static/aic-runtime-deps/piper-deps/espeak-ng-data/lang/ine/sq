@@ -1,1 +1,5 @@
-/home/odin/apps/three-vrm-audio/packages/3rd/piper-wasm/espeak-ng/espeak-ng-data/lang/ine/sq
+name Albanian
+language sq
+
+// add this line to remove 'ë' at the end of words
+// replace 00  @/  NULL

@@ -1,1 +1,8 @@
-/home/odin/apps/three-vrm-audio/packages/3rd/piper-wasm/espeak-ng/espeak-ng-data/lang/gmw/af
+name Afrikaans
+language af
+
+maintainer Christo de Klerk <christodeklerk@gmail.com>
+status mature
+
+roughness 0
+pitch 63 120

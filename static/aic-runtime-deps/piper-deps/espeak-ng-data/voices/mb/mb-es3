@@ -1,1 +1,6 @@
-/home/odin/apps/three-vrm-audio/packages/3rd/piper-wasm/espeak-ng/espeak-ng-data/voices/mb/mb-es3
+language es-es 3
+language es 3
+name spanish-mbrola-3
+gender female
+pitch 140 260
+mbrola es3 es3_phtrans

@@ -1,1 +1,12 @@
-/home/odin/apps/three-vrm-audio/packages/3rd/piper-wasm/espeak-ng/espeak-ng-data/voices/mb/mb-br4
+language pt-br 6
+language pt 8
+name brazil-mbrola-4
+gender female
+
+pitch 140 220
+voicing 80
+
+dictrules 2 3 4
+
+mbrola br4 ptbr4_phtrans
+

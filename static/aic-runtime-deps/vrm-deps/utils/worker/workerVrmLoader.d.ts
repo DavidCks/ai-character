@@ -1,1 +1,3 @@
-/home/odin/apps/three-vrm-audio/packages/r3f-vrm/build/utils/worker/workerVrmLoader.d.ts
+import { VRM } from "@pixiv/three-vrm";
+export declare function loadVrm(vrmUrl: string, buffer: ArrayBuffer): Promise<VRM>;
+//# sourceMappingURL=workerVrmLoader.d.ts.map

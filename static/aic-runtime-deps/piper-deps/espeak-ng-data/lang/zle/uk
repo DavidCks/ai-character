@@ -1,1 +1,7 @@
-/home/odin/apps/three-vrm-audio/packages/3rd/piper-wasm/espeak-ng/espeak-ng-data/lang/zle/uk
+name Ukrainian
+language uk
+
+maintainer Andrij Mizyk <andm1zyk@proton.me>
+status testing
+
+speed 80

@@ -1,1 +1,7 @@
-/home/odin/apps/three-vrm-audio/packages/3rd/piper-wasm/espeak-ng/espeak-ng-data/lang/roa/pap
+name Papiamento
+language pap
+
+status testing
+
+phonemes base2
+

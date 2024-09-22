@@ -1,1 +1,9 @@
-/home/odin/apps/three-vrm-audio/packages/3rd/piper-wasm/espeak-ng/espeak-ng-data/voices/mb/mb-en1
+name english-mb-en1
+language en-uk  3
+language en-gb  3
+language en 2
+gender male
+
+voicing 150
+pitch 82 117
+mbrola en1 en1_phtrans

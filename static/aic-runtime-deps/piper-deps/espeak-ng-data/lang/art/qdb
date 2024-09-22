@@ -1,1 +1,6 @@
-/home/odin/apps/three-vrm-audio/packages/3rd/piper-wasm/espeak-ng/espeak-ng-data/lang/art/qdb
+name Lang Belta
+language qdb
+
+numbers 4 3
+
+replace 1 t ?

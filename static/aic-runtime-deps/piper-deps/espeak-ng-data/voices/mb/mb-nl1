@@ -1,1 +1,5 @@
-/home/odin/apps/three-vrm-audio/packages/3rd/piper-wasm/espeak-ng/espeak-ng-data/voices/mb/mb-nl1
+name dutch-mbrola-1
+language nl 9
+gender male
+mbrola nl1 nl_phtrans
+

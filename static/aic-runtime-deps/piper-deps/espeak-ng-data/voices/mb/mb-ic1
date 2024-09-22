@@ -1,1 +1,7 @@
-/home/odin/apps/three-vrm-audio/packages/3rd/piper-wasm/espeak-ng/espeak-ng-data/voices/mb/mb-ic1
+name icelandic-mbrola-1
+language is 6
+gender male
+
+voicing 180
+mbrola ic1 ic1_phtrans
+ 

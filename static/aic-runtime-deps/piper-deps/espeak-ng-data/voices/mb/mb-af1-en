@@ -1,1 +1,7 @@
-/home/odin/apps/three-vrm-audio/packages/3rd/piper-wasm/espeak-ng/espeak-ng-data/voices/mb/mb-af1-en
+name en-afrikaans
+language en 11
+gender male
+
+pitch 82 117
+mbrola af1 af1_phtrans
+

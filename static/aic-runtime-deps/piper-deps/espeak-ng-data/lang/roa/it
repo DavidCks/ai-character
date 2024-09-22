@@ -1,1 +1,7 @@
-/home/odin/apps/three-vrm-audio/packages/3rd/piper-wasm/espeak-ng/espeak-ng-data/lang/roa/it
+name Italian
+language it
+
+maintainer Christian Leo M <llajta2012@gmail.com>
+status mature
+
+tunes s4 c4 q4 e4

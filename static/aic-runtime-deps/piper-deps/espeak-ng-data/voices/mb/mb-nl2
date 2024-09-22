@@ -1,1 +1,9 @@
-/home/odin/apps/three-vrm-audio/packages/3rd/piper-wasm/espeak-ng/espeak-ng-data/voices/mb/mb-nl2
+language nl 7
+name dutch-mbrola-2
+gender male
+
+pitch 82 117
+voicing 130
+
+mbrola nl2 nl_phtrans
+

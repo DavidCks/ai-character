@@ -1,1 +1,16 @@
-/home/odin/apps/three-vrm-audio/packages/3rd/piper-wasm/espeak-ng/espeak-ng-data/voices/mb/mb-br3-xex
+language xex 5
+name brazil-xextan-3
+gender male
+
+phonemes pt-br
+phonemes pt
+pitch 80 120
+voicing 120
+speed 80
+
+dictrules 2 5
+
+tunes s7 c7 q7 e7
+
+mbrola br3 ptbr2xex_phtrans
+

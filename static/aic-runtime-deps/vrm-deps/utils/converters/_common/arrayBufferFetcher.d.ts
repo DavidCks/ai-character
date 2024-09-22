@@ -1,1 +1,2 @@
-/home/odin/apps/three-vrm-audio/packages/r3f-vrm/build/utils/converters/_common/arrayBufferFetcher.d.ts
+export declare function abFetch(filePath: string, onProgress?: (name: string, progress: number) => void): Promise<ArrayBuffer>;
+//# sourceMappingURL=arrayBufferFetcher.d.ts.map

@@ -1,1 +1,6 @@
-/home/odin/apps/three-vrm-audio/packages/3rd/piper-wasm/espeak-ng/espeak-ng-data/voices/mb/mb-pl1-en
+name en-polish
+language en 11
+gender female
+
+pitch 140 220
+mbrola pl1 pl1_phtrans

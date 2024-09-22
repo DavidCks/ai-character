@@ -1,1 +1,7 @@
-/home/odin/apps/three-vrm-audio/packages/3rd/piper-wasm/espeak-ng/espeak-ng-data/lang/poz/id
+name Indonesian
+language id
+
+stressLength 160 200  180 180  0 0  220 240
+stressAmp    16  18   18  18   0 0  22  21
+
+consonants 80 80

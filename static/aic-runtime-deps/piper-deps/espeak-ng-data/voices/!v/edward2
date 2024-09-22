@@ -1,1 +1,10 @@
-/home/odin/apps/three-vrm-audio/packages/3rd/piper-wasm/espeak-ng/espeak-ng-data/voices/!v/edward2
+language variant
+name Edward2
+klatt 6
+voicing 100
+consonants 70 80
+
+formant 1 92 100 130
+formant 2 103 100 80
+formant 3 103 100 70
+formant 4 114 100 60

@@ -1,1 +1,4 @@
-/home/odin/apps/three-vrm-audio/packages/3rd/piper-wasm/espeak-ng/espeak-ng-data/lang/cel/ga
+name Gaelic (Irish)
+language ga
+
+dictrules 1  // fix for eclipsis

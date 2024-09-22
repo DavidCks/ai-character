@@ -1,1 +1,5 @@
-/home/odin/apps/three-vrm-audio/packages/3rd/piper-wasm/espeak-ng/espeak-ng-data/lang/qu
+name Quechua
+language qu
+stressRule 2 // stress on penultimate syllable
+status testing
+
