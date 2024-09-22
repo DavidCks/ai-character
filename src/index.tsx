@@ -1,7 +1,8 @@
 import React, { useState } from "react";
-import { Canvas, useThree } from "@react-three/fiber";
+import { Canvas, useThree, useFrame } from "@react-three/fiber";
 import { Grid, OrbitControls } from "@react-three/drei";
 import { AICharacter } from "./AICharacter";
+import { AICharacterManager } from "./AICharacterManager";
 
 const AICharacterCanvas = () => {
   const [count, setCount] = useState(0);
@@ -26,7 +27,22 @@ const AICharacterCanvas = () => {
 
 const Character = () => {
   const { scene, camera } = useThree();
-  return <AICharacter scene={scene} camera={camera} />;
+  const managerRef = React.useRef<AICharacterManager | null>(null);
+  useFrame((_, delta) => {
+    if (managerRef.current) {
+      managerRef.current.update(delta);
+    }
+  });
+
+  return (
+    <AICharacter
+      scene={scene}
+      camera={camera}
+      onLoad={(manager) => {
+        managerRef.current = manager;
+      }}
+    />
+  );
 };
 
 export default Character;

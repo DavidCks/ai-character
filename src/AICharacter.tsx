@@ -25,7 +25,9 @@ export const AICharacter: React.FC<AICharacterProps> = (props) => {
   const handleLoad = React.useCallback(async (vrmManager: VRMManager) => {
     vrmManager.vrm.scene.visible = false;
     managerRef.current = new AICharacterManager(vrmManager, props.voiceName);
-
+    if (props.onLoad) {
+      await props.onLoad(managerRef.current);
+    }
     vrmManager.focusManager.focus({
       cameraOffset: new Vector3(0, 0.0, -0.3),
       lookAtOffset: new Vector3(0, 0.1, 0),
@@ -52,9 +54,6 @@ export const AICharacter: React.FC<AICharacterProps> = (props) => {
       cameraOffset: new Vector3(0, 0.0, -0.2),
       focusIntensity: 0.004,
     });
-    if (props.onLoad) {
-      await props.onLoad(managerRef.current);
-    }
     await managerRef.current.chainManager.playPreparedChain(chain);
     vrmManager.vrm.scene.visible = true;
   }, []);
