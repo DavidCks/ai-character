@@ -1,6 +1,6 @@
 {
   "name": "ai-character",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "main": "dist/index.cjs.js",
   "module": "dist/index.esm.js",
   "type": "module",
@@ -8,28 +8,29 @@
     "dev": "storybook dev",
     "redev": "rm -rf node_modules/@davidcks/r3f-vrm && cd ../r3f-vrm && bun i && bun run build && cd - && rm -rf node_modules/piper-wasm && cd ../3rd/piper-wasm/ && bun i && bun run build && cd - && rm -rf static/aic-runtime-deps/piper-deps/ && rm -rf static/aic-runtime-deps/vrm-deps/ && bun i && bun run build && bun run dev",
     "build": "rm -rf static/aic-runtime-deps/piper-deps/ && rm -rf static/aic-runtime-deps/vrm-deps/ && rollup -c && bun run resolve-symlinks",
-    "resolve-symlinks": "bun run resolve-symlinks.js ./static"
+    "build-worker": "rollup --config rollup.config.worker.js",
+    "resolve-symlinks": "bun run resolve-symlinks.js ./static",
+    "test": "bun test"
   },
   "files": [
     "static/"
   ],
   "dependencies": {
-    "@davidcks/r3f-vrm": "../r3f-vrm",
-    "piper-wasm": "../3rd/piper-wasm",
+    "@davidcks/r3f-vrm": "file:../r3f-vrm",
     "@react-three/fiber": "^8.17.5",
+    "piper-wasm": "file:../3rd/piper-wasm",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
     "react-icons": "^5.3.0"
   },
   "devDependencies": {
+    "@huggingface/transformers": "^3.0.0-alpha.17",
     "rollup-plugin-copy": "^3.5.0",
     "bun-types": "latest",
     "eslint": "^8.56.0",
     "prettier": "^3.1.1",
-    "jest": "^29.7.0",
     "@types/react": "^18.2.0",
     "@types/react-dom": "^18.2.0",
-    "@types/jest": "29.5.12",
     "storybook": "8.0.9",
     "@storybook/react-vite": "8.0.9",
     "rollup": "^4.17.2",

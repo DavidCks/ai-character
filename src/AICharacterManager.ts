@@ -15,6 +15,7 @@ import { VoiceNames, VoiceType, voices } from "./repo/voices";
 import { piperGenerate, piperPhonemize } from "piper-wasm";
 import { InteractionAnimationMetadataType } from "./repo/animations/interactions";
 import { Chain, ChainManager } from "./managers/ChainManager";
+// import { LlamaManager } from "./managers/LlamaManager";
 
 export type AICharacterEventDataType = "motion" | "face" | "mouth";
 export type AICharacterEventListenerType = (
@@ -329,6 +330,12 @@ export class AICharacterManager {
       ]);
     });
     return { data: piperData, audio };
+  }
+
+  async stop() {
+    this.vrmManager.expressionManager.mouth.applyExpressions([
+      { duration: 1000 },
+    ]);
   }
 
   async _getEmotionMotionChain(

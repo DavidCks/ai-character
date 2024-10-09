@@ -1,3 +1,1 @@
-import React from "react";
-export declare const VRMComponent: React.FC;
-//# sourceMappingURL=index.d.ts.map
+/home/odin/apps/three-vrm-audio/packages/r3f-vrm/build/index.d.ts

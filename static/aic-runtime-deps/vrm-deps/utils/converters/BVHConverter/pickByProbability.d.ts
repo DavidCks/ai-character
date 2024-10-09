@@ -1,8 +1,1 @@
-/**
- * Pick an item from the given array by probability evaluation functions.
- */
-export declare function pickByProbability<T>(array: T[], evaluators: {
-    func: (value: T) => number;
-    weight: number;
-}[]): T | null;
-//# sourceMappingURL=pickByProbability.d.ts.map
+/home/odin/apps/three-vrm-audio/packages/r3f-vrm/build/utils/converters/BVHConverter/pickByProbability.d.ts

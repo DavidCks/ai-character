@@ -6,17 +6,55 @@ import { AICharacterManager } from "./AICharacterManager";
 import { Controls } from "./components/Controls";
 import { VoiceNames } from "./repo/voices";
 import { emotionAnimations } from "./repo/animations/emotions";
+import { animationRepo } from "./repo/animations/repo";
 
+/**
+ * Props for the AICharacter component.
+ *
+ * @typedef {Object} AICharacterProps
+ * @property {Scene} scene - The scene where the AI character is rendered.
+ * @property {Camera} camera - The camera used for rendering the character and controling the focus on the character.
+ * @property {string} [vrmUrl] - The URL of the VRM model to load.
+ * @property {VoiceNames} [voiceName] - The voice profile to use for the AI character.
+ * @property {(manager: AICharacterManager) => void} [onLoad] - Callback fired when the character is loaded.
+ *           It will be invisible until the appearance animations have loaded. If you want to how the character
+ *           before that, you can set `manager.vrmManager.vrm.scene.visible = true`. It will be in its' default pose though.
+ * @property {() => void} [onVisible] - Callback fired when the character becomes visible.
+ * @property {(progress: number) => void} [onProgress] - Callback fired to report loading progress.
+ * @property {boolean} [showControls] - Flag indicating if the control UI should be shown. This isn't really for you,
+ *            more of a thing for me to debug, but it might come in handy for your debugging purposes as well. No guarantee
+ *            that it actually works in your environment though. You're probably better off forking the repo
+ *            and testing your models through storybook.
+ */
 export type AICharacterProps = {
   scene: Scene;
   camera: Camera;
   vrmUrl?: string;
   voiceName?: VoiceNames;
   onLoad?: (manager: AICharacterManager) => void;
+  onVisible?: () => void;
   onProgress?: (progress: number) => void;
   showControls?: boolean;
 };
 
+/**
+ * Props for the AICharacter component.
+ *
+ * @typedef {Object} AICharacterProps
+ * @property {Scene} scene - The scene where the AI character is rendered.
+ * @property {Camera} camera - The camera used for rendering the character and controling the focus on the character.
+ * @property {string} [vrmUrl] - The URL of the VRM model to load.
+ * @property {VoiceNames} [voiceName] - The voice profile to use for the AI character.
+ * @property {(manager: AICharacterManager) => void} [onLoad] - Callback fired when the character is loaded.
+ *           It will be invisible until the appearance animations have loaded. If you want to how the character
+ *           before that, you can set `manager.vrmManager.vrm.scene.visible = true`. It will be in its' default pose though.
+ * @property {() => void} [onVisible] - Callback fired when the character becomes visible.
+ * @property {(progress: number) => void} [onProgress] - Callback fired to report loading progress.
+ * @property {boolean} [showControls] - Flag indicating if the control UI should be shown. This isn't really for you,
+ *            more of a thing for me to debug, but it might come in handy for your debugging purposes as well. No guarantee
+ *            that it actually works in your environment though. You're probably better off forking the repo
+ *            and testing your models through storybook.
+ */
 export const AICharacter: React.FC<AICharacterProps> = (props) => {
   const managerRef = React.useRef<AICharacterManager | null>(null);
   const [showControls, setShowControls] = React.useState(
@@ -34,15 +72,15 @@ export const AICharacter: React.FC<AICharacterProps> = (props) => {
       focusIntensity: 1,
     });
     const chainPromise = managerRef.current.chainManager.prepareChain({
-      motionAnimationName: "Surprise Wave Greeting",
+      motionAnimationName: animationRepo.surpriseWaveGreeting.name,
       emotion: "joy",
       intensity: 1,
       next: {
-        motionAnimationName: "Slight Turn Idle",
+        motionAnimationName: animationRepo.slightTurnIdle.name,
         emotion: "joy",
         intensity: 0.1,
         next: {
-          motionAnimationName: "Surprise Wave Greeting",
+          motionAnimationName: animationRepo.lightBreathing.name,
           emotion: "joy",
           intensity: 1,
           next: null,
@@ -56,6 +94,7 @@ export const AICharacter: React.FC<AICharacterProps> = (props) => {
     });
     await managerRef.current.chainManager.playPreparedChain(chain);
     vrmManager.vrm.scene.visible = true;
+    props.onVisible && props.onVisible();
   }, []);
 
   const handleProgress = React.useCallback((progress: number) => {

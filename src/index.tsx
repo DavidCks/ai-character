@@ -38,6 +38,7 @@ const Character = () => {
     <AICharacter
       scene={scene}
       camera={camera}
+      showControls={true}
       onLoad={(manager) => {
         managerRef.current = manager;
       }}

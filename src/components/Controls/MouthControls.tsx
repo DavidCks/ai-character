@@ -24,9 +24,14 @@ export const MouthControls: React.FC<ControlsTypeProps> = (props) => {
     }
     setTtsProgress(0);
     const inputText = input.innerText;
-    const audioData = await props.manager.say(inputText, selectedVoice, (p) => {
-      setTtsProgress(p);
-    });
+    const generatedResponse = await props.manager.prompt(inputText);
+    const audioData = await props.manager.say(
+      generatedResponse,
+      selectedVoice,
+      (p) => {
+        setTtsProgress(p);
+      }
+    );
     input.innerHTML = "";
     setMessages([...messages, audioData]);
     audioData.audio.addEventListener("ended", () => {

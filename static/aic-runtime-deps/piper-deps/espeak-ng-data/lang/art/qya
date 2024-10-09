@@ -1,4 +1,1 @@
-name Quenya
-language qya
-stressRule 2
-// rule=penultimate, with qya_rules for light penultimate syllables to move primary stress to the preceding (antepenultimate) syllable
+/home/odin/apps/three-vrm-audio/packages/3rd/piper-wasm/espeak-ng/espeak-ng-data/lang/art/qya

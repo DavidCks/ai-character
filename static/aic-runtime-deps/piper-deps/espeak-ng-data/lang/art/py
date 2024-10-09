@@ -1,7 +1,1 @@
-name Pyash
-language py
-maintainer Logan Streondj <logan@liberit.ca>
-status testing
-
-speed 80   // speed adjustment, percentage
-stressRule 0
+/home/odin/apps/three-vrm-audio/packages/3rd/piper-wasm/espeak-ng/espeak-ng-data/lang/art/py

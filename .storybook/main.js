@@ -1,5 +1,5 @@
 export default {
   stories: ["./*.stories.jsx"],
   framework: { name: "@storybook/react-vite" },
-  staticDirs: ["../static"],
+  staticDirs: ["../static", "../dist"],
 };

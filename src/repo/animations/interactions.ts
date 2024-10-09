@@ -131,7 +131,7 @@ export const interactionAnimations: {
     name: "Squatting",
     emotion: "neutral",
     intensity: 1,
-    key: "airSquat",
+    key: "squatting",
     url: "aic-runtime-deps/animations/interactions/Air_Squat.fbx",
     motion: "Squatting",
     type: "fbx",

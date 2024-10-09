@@ -1,12 +1,1 @@
-language pt-br 6
-language pt 8
-name brazil-mbrola-2
-gender female
-
-pitch 115 195
-voicing 120
-
-dictrules 2 3 4
-
-mbrola br2 ptbr_phtrans
-
+/home/odin/apps/three-vrm-audio/packages/3rd/piper-wasm/espeak-ng/espeak-ng-data/voices/mb/mb-br2

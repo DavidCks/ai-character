@@ -1,2 +1,1 @@
-export declare function arrayBufferToString(buffer: ArrayBuffer): string;
-//# sourceMappingURL=arrayBufferToString.d.ts.map
+/home/odin/apps/three-vrm-audio/packages/r3f-vrm/build/utils/converters/_common/arrayBufferToString.d.ts

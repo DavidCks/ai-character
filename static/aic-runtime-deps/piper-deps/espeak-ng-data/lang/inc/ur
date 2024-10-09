@@ -1,7 +1,1 @@
-name Urdu
-language ur
-maintainer Ejaz Shah <eashah67@gmail.com>
-status testing
-
-stressRule 6
-
+/home/odin/apps/three-vrm-audio/packages/3rd/piper-wasm/espeak-ng/espeak-ng-data/lang/inc/ur

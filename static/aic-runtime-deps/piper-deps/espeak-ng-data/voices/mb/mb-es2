@@ -1,8 +1,1 @@
-language es-es 7
-language es 7
-name spanish-mbrola-2
-gender male
-pitch 82 117
-
-mbrola es2 es_phtrans 22050
-
+/home/odin/apps/three-vrm-audio/packages/3rd/piper-wasm/espeak-ng/espeak-ng-data/voices/mb/mb-es2
