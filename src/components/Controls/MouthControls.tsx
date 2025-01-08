@@ -24,14 +24,9 @@ export const MouthControls: React.FC<ControlsTypeProps> = (props) => {
     }
     setTtsProgress(0);
     const inputText = input.innerText;
-    const generatedResponse = await props.manager.prompt(inputText);
-    const audioData = await props.manager.say(
-      generatedResponse,
-      selectedVoice,
-      (p) => {
-        setTtsProgress(p);
-      }
-    );
+    const audioData = await props.manager.say(inputText, selectedVoice, (p) => {
+      setTtsProgress(p);
+    });
     input.innerHTML = "";
     setMessages([...messages, audioData]);
     audioData.audio.addEventListener("ended", () => {
@@ -90,10 +85,10 @@ export const MouthControls: React.FC<ControlsTypeProps> = (props) => {
                   backgroundColor={props.elementBackgroundColor}
                   icon={{
                     icon: FaDownload,
-                    iconSize: 14,
+                    iconSize: 24,
                     radius: 48,
                     backgroundColor: props.backgroundColor,
-                    iconColor: "black",
+                    iconColor: "white",
                     onClick: () => {
                       const inputSubstring = messageData.data.input.substring(
                         0,
@@ -135,7 +130,7 @@ export const MouthControls: React.FC<ControlsTypeProps> = (props) => {
                 borderRadius: props.borderRadius,
                 background: props.elementBackgroundColor,
                 padding: "4px",
-                fontSize: "7pt",
+                fontSize: "14pt",
               }}
               contentEditable
             ></div>
@@ -180,7 +175,7 @@ export const MouthControls: React.FC<ControlsTypeProps> = (props) => {
           >
             <IconButton
               radius={48}
-              iconSize={18}
+              iconSize={36}
               backgroundColor={props.elementBackgroundColor}
               icon={FaArrowCircleUp}
               onClick={handleSend}

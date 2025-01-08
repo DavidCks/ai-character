@@ -42,11 +42,13 @@ export const StatusDisplay: React.FC<StatusDisplayProps> = (props) => {
     <div
       style={{
         paddingInline: "4px",
-        height: "50px",
-        width: "300px",
+        marginTop: "20px",
+        height: "100px",
+        width: "600px",
+        color: "#F9F9F9FF",
         backgroundColor: props.containerColor,
         borderRadius: props.containerRadius,
-        fontSize: "7pt",
+        fontSize: "14pt",
       }}
     >
       <p>

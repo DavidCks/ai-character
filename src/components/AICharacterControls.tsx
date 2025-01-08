@@ -55,11 +55,13 @@ export const controlMenuMap: {
   },
 };
 
-export type ControlsProps = {
+export type AICharacterControlsProps = {
   manager: AICharacterManager;
 };
 
-export const Controls: React.FC<ControlsProps> = (props) => {
+export const AICharacterControls: React.FC<AICharacterControlsProps> = (
+  props
+) => {
   const [selectedMainMenu, setSelectedMainMenu] =
     React.useState<string>("face");
   const [selectedEmotion, setSelectedEmotion] = React.useState<string>("");
@@ -88,7 +90,7 @@ export const Controls: React.FC<ControlsProps> = (props) => {
             <IconButton
               key={key}
               icon={icon}
-              iconSize={24}
+              iconSize={42}
               iconColor={key === selectedMainMenu ? "#393939FF" : "#39393988"}
               radius={48}
               backgroundColor={
@@ -106,8 +108,8 @@ export const Controls: React.FC<ControlsProps> = (props) => {
     return (
       <div
         style={{
-          height: "200px",
-          width: "300px",
+          height: "400px",
+          width: "600px",
         }}
       >
         <div
@@ -153,8 +155,8 @@ export const Controls: React.FC<ControlsProps> = (props) => {
                 React.createElement(controlMenuMap[selectedMainMenu].controls, {
                   manager: props.manager,
                   borderRadius: containerRadius,
-                  backgroundColor: "#C9C9C9BB",
-                  elementBackgroundColor: "#FAFAFAFF",
+                  backgroundColor: "#191919BB",
+                  elementBackgroundColor: "#0A0A0A88",
                 })}
             </div>
           </div>
@@ -168,7 +170,7 @@ export const Controls: React.FC<ControlsProps> = (props) => {
       {_buildControls()}
       <StatusDisplay
         manager={props.manager}
-        containerColor="#C9C9C9BB"
+        containerColor="#191919BB"
         containerRadius={containerRadius}
       />
     </>

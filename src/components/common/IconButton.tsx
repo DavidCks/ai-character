@@ -36,16 +36,18 @@ export type IconButtonProps = {
  * @param {number} [props.radius=8] - Border radius of the button.
  * @param {string} [props.label] - Optional text label displayed below the icon.
  * @param {string} [props.backgroundColor] - Background color of the button.
+ * @param {string} [props.color="white"] - Text color of the label.
  * @param {Function} [props.onClick] - Function to be called when the button is clicked.
  *
  * @returns {JSX.Element} The rendered IconButton component.
  */
 export const IconButton: React.FC<IconButtonProps> = ({
   icon: Icon,
-  iconSize = 24,
+  iconSize = 32,
   iconColor,
   rotation = 0,
   radius = 8,
+  color = "white",
   label,
   backgroundColor,
   onClick,
@@ -57,6 +59,7 @@ export const IconButton: React.FC<IconButtonProps> = ({
       onClick={onClick}
       style={{
         ...rest.style,
+        color,
         display: "flex",
         flexDirection: "column",
         alignItems: "center",
@@ -83,7 +86,7 @@ export const IconButton: React.FC<IconButtonProps> = ({
           style={{
             paddingBottom: 4,
             textAlign: "center",
-            fontSize: "4pt",
+            fontSize: "8pt",
           }}
         >
           {label}

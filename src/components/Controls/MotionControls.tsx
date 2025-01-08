@@ -96,11 +96,11 @@ export const MotionControls: React.FC<ControlsTypeProps> = (props) => {
                 subtitle={emotion.motionType}
                 body={emotion.motion}
                 borderRadius={8}
-                backgroundColor={"#FAFAFAFF"}
+                backgroundColor={"#1A1A1A88"}
                 icon={{
                   icon:
                     playingEmotionAnimation === emotion.name ? FaStop : FaPlay,
-                  iconSize: 16,
+                  iconSize: 32,
                   iconColor: "#393939FF",
                   radius: 48,
                   backgroundColor: "#D9D9D9",

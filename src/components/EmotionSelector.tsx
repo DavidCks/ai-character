@@ -92,7 +92,7 @@ export const EmotionSelector: React.FC<EmotionSelectorProps> = (props) => {
     <div
       style={{
         padding: 4,
-        backgroundColor: "#C9C9C9BB",
+        backgroundColor: "#191919BB",
         borderRadius: props.borderRadius,
       }}
     >
@@ -115,7 +115,7 @@ export const EmotionSelector: React.FC<EmotionSelectorProps> = (props) => {
             cursor: "pointer",
             padding: 0,
             border: "none",
-            fontSize: "4pt",
+            fontSize: "8pt",
             backgroundColor: "transparent",
             textDecoration: alphabetOrdering ? "underline" : "none",
           }}
@@ -130,7 +130,7 @@ export const EmotionSelector: React.FC<EmotionSelectorProps> = (props) => {
             cursor: "pointer",
             padding: 0,
             border: "none",
-            fontSize: "4pt",
+            fontSize: "8pt",
             backgroundColor: "transparent",
             textDecoration: !alphabetOrdering ? "underline" : "none",
           }}
@@ -166,12 +166,15 @@ export const EmotionSelector: React.FC<EmotionSelectorProps> = (props) => {
                   key={key}
                   label={label}
                   icon={icon}
-                  iconSize={24}
+                  iconSize={46}
+                  color={
+                    key === props.selectedEmotion ? "#050505FF" : "#05050588"
+                  }
                   iconColor={
-                    key === props.selectedEmotion ? "#494949FF" : "#49494988"
+                    key === props.selectedEmotion ? "#050505FF" : "#05050588"
                   }
                   backgroundColor={
-                    key === props.selectedEmotion ? "#FAFAFAFF" : "#FAFAFA88"
+                    key === props.selectedEmotion ? "#DADADAFF" : "#FAFAFA88"
                   }
                   radius={14}
                   rotation={angle}

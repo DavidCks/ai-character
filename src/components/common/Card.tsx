@@ -44,12 +44,13 @@ export const Card: React.FC<CardProps> = (props) => {
         width: "100%",
         borderRadius: props.borderRadius,
         backgroundColor: props.backgroundColor,
+        color: "#F9F9F9FF",
         display: "flex",
         paddingLeft: 8,
         paddingBlock: 8,
         paddingRight: 4,
         flexDirection: "row",
-        fontSize: "7pt",
+        fontSize: "14pt",
       }}
     >
       {/* Main Div */}
@@ -82,13 +83,13 @@ export const Card: React.FC<CardProps> = (props) => {
           }}
         >
           {props.subtitle && (
-            <span style={{ fontSize: "6pt", opacity: 0.75 }}>
+            <span style={{ fontSize: "12pt", opacity: 0.75 }}>
               {props.subtitle}
             </span>
           )}
           <span
             style={{
-              fontSize: "4pt",
+              fontSize: "8pt",
               wordWrap: "anywhere" as any,
             }}
           >
@@ -103,7 +104,7 @@ export const Card: React.FC<CardProps> = (props) => {
           flex: 1,
           alignItems: "center",
           paddingRight: "4px",
-          paddingLeft: "4px",
+          paddingLeft: "8px",
         }}
       >
         <IconButton {...props.icon} />

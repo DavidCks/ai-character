@@ -5,8 +5,6 @@ import { AICharacter } from "./AICharacter";
 import { AICharacterManager } from "./AICharacterManager";
 
 const AICharacterCanvas = () => {
-  const [count, setCount] = useState(0);
-
   return (
     <Canvas
       camera={{ near: 0.01, far: 1000, position: [0, 1, 5] }} // Set the camera position
@@ -38,7 +36,6 @@ const Character = () => {
     <AICharacter
       scene={scene}
       camera={camera}
-      showControls={true}
       onLoad={(manager) => {
         managerRef.current = manager;
       }}

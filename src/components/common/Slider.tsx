@@ -5,6 +5,7 @@ export type SliderProps = {
   labelEnd?: string;
   backgroundColor: string;
   orientation?: "horizontal" | "vertical";
+  color?: string;
   onChange: (value: number) => void;
   value: number;
 };
@@ -13,6 +14,7 @@ export const Slider: React.FC<SliderProps> = ({
   labelStart,
   labelEnd,
   backgroundColor,
+  color = "white",
   orientation = "horizontal",
   onChange,
   value = 0,
@@ -33,12 +35,14 @@ export const Slider: React.FC<SliderProps> = ({
     <div
       style={{
         backgroundColor: backgroundColor,
+        color: color,
         borderRadius: "12px",
         border: `7px solid ${backgroundColor}`,
         boxSizing: "border-box",
         display: "flex",
         alignItems: "center",
         position: "relative",
+        marginTop: "6px",
         width: isHorizontal ? "100%" : "auto",
         height: isHorizontal ? "auto" : "100%",
         flexDirection: isHorizontal ? "row" : "column",
@@ -47,16 +51,16 @@ export const Slider: React.FC<SliderProps> = ({
       {/* Left/Top Diamond End */}
       <div
         style={{
-          width: "4px",
-          height: "4px",
-          backgroundColor: "black",
+          width: "12px",
+          height: "12px",
+          backgroundColor: color,
           transform: "rotate(45deg)",
           position: "absolute",
           left: isHorizontal ? "0" : "50%",
           top: isHorizontal ? "50%" : "0",
           transformOrigin: "center",
-          marginTop: isHorizontal ? "-1px" : "1px",
-          marginLeft: isHorizontal ? "1px" : "-1px",
+          marginTop: isHorizontal ? "-5px" : "1px",
+          marginLeft: isHorizontal ? "1px" : "-5px",
         }}
       ></div>
       {/* label start */}
@@ -64,9 +68,10 @@ export const Slider: React.FC<SliderProps> = ({
         style={{
           position: "absolute",
           bottom: isHorizontal ? "110%" : "unset",
-          top: isHorizontal ? "unset" : "-3px",
-          fontSize: "7pt",
-          marginRight: isHorizontal ? "unset" : "-320%",
+          top: isHorizontal ? "unset" : "-2px",
+          color: color,
+          fontSize: "8pt",
+          marginRight: isHorizontal ? "unset" : "-56px",
           textShadow: `0px 0px 4px ${backgroundColor}`,
         }}
       >
@@ -76,11 +81,12 @@ export const Slider: React.FC<SliderProps> = ({
       <div
         style={{
           position: "absolute",
-          bottom: isHorizontal ? "110%" : "-3px",
+          bottom: isHorizontal ? "110%" : "-2px",
           top: isHorizontal ? "unset" : "unset",
           right: isHorizontal ? "0px" : "unset",
-          fontSize: "7pt",
-          marginRight: isHorizontal ? "unset" : "-320%",
+          color: color,
+          fontSize: "8pt",
+          marginRight: isHorizontal ? "unset" : "-56px",
           textShadow: `0px 0px 4px ${backgroundColor}`,
         }}
       >
@@ -102,26 +108,26 @@ export const Slider: React.FC<SliderProps> = ({
           flex: 1,
           appearance: "none",
           opacity: 0,
-          width: isHorizontal ? "100%" : "8px",
-          height: isHorizontal ? "8px" : "100%",
+          width: isHorizontal ? "100%" : "16px",
+          height: isHorizontal ? "16px" : "100%",
           background: "transparent",
           outline: "none",
           position: "relative",
           zIndex: 1,
-          writingMode: isHorizontal ? "horizontal-tb" : "sideways-rl",
+          writingMode: isHorizontal ? "horizontal-tb" : ("tb" as any),
         }}
       />
 
       {/* Right/Bottom Diamond End */}
       <div
         style={{
-          width: "4px",
-          height: "4px",
-          backgroundColor: "black",
+          width: "12px",
+          height: "12px",
+          backgroundColor: color,
           transform: "rotate(45deg)",
           position: "absolute",
-          right: isHorizontal ? "1px" : "25%",
-          bottom: isHorizontal ? "25%" : "1px",
+          right: isHorizontal ? "1px" : "1px",
+          bottom: isHorizontal ? "1px" : "1px",
           transformOrigin: "center",
           marginTop: isHorizontal ? "-1px" : "1px",
         }}
@@ -137,7 +143,7 @@ export const Slider: React.FC<SliderProps> = ({
           bottom: isHorizontal ? "auto" : "5px", // Offset by diamond height for vertical
           width: isHorizontal ? "auto" : "2px",
           height: isHorizontal ? "2px" : "auto",
-          backgroundColor: "black",
+          backgroundColor: color,
           borderRadius: "4px",
         }}
       >
@@ -151,11 +157,11 @@ export const Slider: React.FC<SliderProps> = ({
             top: isHorizontal
               ? "50%"
               : `calc(${(Math.ceil(value * 100) - 100) * -1}% - 2.5px)`,
-            width: "5px",
-            height: "5px",
-            backgroundColor: "black",
+            width: "16px",
+            height: "16px",
+            backgroundColor: color,
             borderRadius: "50%",
-            border: "2px solid black",
+            border: `1px solid #000000AA`,
             transform: isHorizontal
               ? "translateY(-50%)"
               : "translateX(-50%) translateY(-50%)",

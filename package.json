@@ -16,9 +16,10 @@
     "static/"
   ],
   "dependencies": {
-    "@davidcks/r3f-vrm": "file:../r3f-vrm",
-    "@react-three/fiber": "^8.17.5",
-    "piper-wasm": "file:../3rd/piper-wasm",
+    "@davidcks/r3f-vrm": "../r3f-vrm",
+    "@react-three/drei": "^9.114.5",
+    "@react-three/fiber": "^8.17.10",
+    "piper-wasm": "../3rd/piper-wasm",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
     "react-icons": "^5.3.0"
@@ -44,7 +45,8 @@
   },
   "peerDependencies": {
     "typescript": "^5.0.0",
-    "@react-three/fiber": "^8.17.5",
+    "@react-three/drei": "^9.114.5",
+    "@react-three/fiber": "^8.17.10",
     "react": "^18.3.1",
     "react-dom": "^18.3.1"
   },
